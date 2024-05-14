@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="AttendenceProjectModelStoreContainer" CdmEntityContainer="AttendenceProjectEntities1">
+    <EntitySetMapping Name="Attendances">
+      <EntityTypeMapping TypeName="AttendenceProjectModel.Attendance">
+        <MappingFragment StoreEntitySet="Attendance">
+          <ScalarProperty Name="Approval" ColumnName="Approval" />
+          <ScalarProperty Name="AttendanceID" ColumnName="AttendanceID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="AttendanceDate" ColumnName="AttendanceDate" />
+          <ScalarProperty Name="HoursWorked" ColumnName="HoursWorked" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeProjectAssignments">
+      <EntityTypeMapping TypeName="AttendenceProjectModel.EmployeeProjectAssignment">
+        <MappingFragment StoreEntitySet="EmployeeProjectAssignment">
+          <ScalarProperty Name="AssignmentID" ColumnName="AssignmentID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="AssignmentDate" ColumnName="AssignmentDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Grades">
+      <EntityTypeMapping TypeName="AttendenceProjectModel.Grade">
+        <MappingFragment StoreEntitySet="Grade">
+          <ScalarProperty Name="GradeID" ColumnName="GradeID" />
+          <ScalarProperty Name="GradeName" ColumnName="GradeName" />
+          <ScalarProperty Name="TotalCasualLeave" ColumnName="TotalCasualLeave" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Leaves">
+      <EntityTypeMapping TypeName="AttendenceProjectModel.Leave">
+        <MappingFragment StoreEntitySet="Leave">
+          <ScalarProperty Name="LeaveID" ColumnName="LeaveID" />
+          <ScalarProperty Name="LeaveType" ColumnName="LeaveType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LeaveBalances">
+      <EntityTypeMapping TypeName="AttendenceProjectModel.LeaveBalance">
+        <MappingFragment StoreEntitySet="LeaveBalance">
+          <ScalarProperty Name="LeaveBalanceID" ColumnName="LeaveBalanceID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="LeaveID" ColumnName="LeaveID" />
+          <ScalarProperty Name="Balance" ColumnName="Balance" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LeaveHistories">
+      <EntityTypeMapping TypeName="AttendenceProjectModel.LeaveHistory">
+        <MappingFragment StoreEntitySet="LeaveHistory">
+          <ScalarProperty Name="LeaveHistoryID" ColumnName="LeaveHistoryID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="LeaveID" ColumnName="LeaveID" />
+          <ScalarProperty Name="LeaveDate" ColumnName="LeaveDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LeaveInfoes">
+      <EntityTypeMapping TypeName="AttendenceProjectModel.LeaveInfo">
+        <MappingFragment StoreEntitySet="LeaveInfo">
+          <ScalarProperty Name="LeaveInfoID" ColumnName="LeaveInfoID" />
+          <ScalarProperty Name="DayOfWeek" ColumnName="DayOfWeek" />
+          <ScalarProperty Name="LeaveDate" ColumnName="LeaveDate" />
+          <ScalarProperty Name="LeaveTypeID" ColumnName="LeaveTypeID" />
+          <ScalarProperty Name="HolidayName" ColumnName="HolidayName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LeaveRequests">
+      <EntityTypeMapping TypeName="AttendenceProjectModel.LeaveRequest">
+        <MappingFragment StoreEntitySet="LeaveRequest">
+          <ScalarProperty Name="LeaveRequestID" ColumnName="LeaveRequestID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="LeaveID" ColumnName="LeaveID" />
+          <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+          <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+          <ScalarProperty Name="TotalDays" ColumnName="TotalDays" />
+          <ScalarProperty Name="AppliedDate" ColumnName="AppliedDate" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Reason" ColumnName="Reason" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Projects">
+      <EntityTypeMapping TypeName="AttendenceProjectModel.Project">
+        <MappingFragment StoreEntitySet="Project">
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ProjectStartDate" ColumnName="ProjectStartDate" />
+          <ScalarProperty Name="ProjectEndDate" ColumnName="ProjectEndDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="AttendenceProjectModel.Role">
+        <MappingFragment StoreEntitySet="Role">
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="AttendenceProjectModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="GradeID" ColumnName="GradeID" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="HireDate" ColumnName="HireDate" />
+          <ScalarProperty Name="ManagerID" ColumnName="ManagerID" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Salary" ColumnName="Salary" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserRoleMappings">
+      <EntityTypeMapping TypeName="AttendenceProjectModel.UserRoleMapping">
+        <MappingFragment StoreEntitySet="UserRoleMapping">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

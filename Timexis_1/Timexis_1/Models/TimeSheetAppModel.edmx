@@ -1,0 +1,986 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AttendenceProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Attendance">
+          <Key>
+            <PropertyRef Name="AttendanceID" />
+          </Key>
+          <Property Name="AttendanceID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="ProjectID" Type="int" Nullable="false" />
+          <Property Name="AttendanceDate" Type="date" Nullable="false" />
+          <Property Name="HoursWorked" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="IsPending" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmployeeProjectAssignment">
+          <Key>
+            <PropertyRef Name="AssignmentID" />
+          </Key>
+          <Property Name="AssignmentID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="ProjectID" Type="int" Nullable="false" />
+          <Property Name="AssignmentDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Grade">
+          <Key>
+            <PropertyRef Name="GradeID" />
+          </Key>
+          <Property Name="GradeID" Type="int" Nullable="false" />
+          <Property Name="GradeName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="TotalCasualLeave" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Leave">
+          <Key>
+            <PropertyRef Name="LeaveID" />
+          </Key>
+          <Property Name="LeaveID" Type="int" Nullable="false" />
+          <Property Name="LeaveType" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LeaveBalance">
+          <Key>
+            <PropertyRef Name="LeaveBalanceID" />
+          </Key>
+          <Property Name="LeaveBalanceID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="LeaveID" Type="int" Nullable="false" />
+          <Property Name="Balance" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LeaveHistory">
+          <Key>
+            <PropertyRef Name="LeaveHistoryID" />
+          </Key>
+          <Property Name="LeaveHistoryID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="LeaveID" Type="int" Nullable="false" />
+          <Property Name="LeaveDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LeaveInfo">
+          <Key>
+            <PropertyRef Name="LeaveInfoID" />
+          </Key>
+          <Property Name="LeaveInfoID" Type="int" Nullable="false" />
+          <Property Name="DayOfWeek" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="LeaveDate" Type="date" Nullable="false" />
+          <Property Name="LeaveTypeID" Type="int" Nullable="false" />
+          <Property Name="HolidayName" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="LeaveRequest">
+          <Key>
+            <PropertyRef Name="LeaveRequestID" />
+          </Key>
+          <Property Name="LeaveRequestID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="LeaveID" Type="int" Nullable="false" />
+          <Property Name="FromDate" Type="date" Nullable="false" />
+          <Property Name="ToDate" Type="date" Nullable="false" />
+          <Property Name="TotalDays" Type="int" Nullable="false" />
+          <Property Name="AppliedDate" Type="date" />
+          <Property Name="Status" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Reason" Type="text" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="ProjectID" Type="int" Nullable="false" />
+          <Property Name="ProjectName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="text" Nullable="false" />
+          <Property Name="ProjectStartDate" Type="date" Nullable="false" />
+          <Property Name="ProjectEndDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="int" Nullable="false" />
+          <Property Name="RoleName" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
+          <Property Name="GradeID" Type="int" Nullable="false" />
+          <Property Name="FullName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="EmailID" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="HireDate" Type="date" Nullable="false" />
+          <Property Name="ManagerID" Type="int" />
+          <Property Name="Status" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="Salary" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserRoleMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="RoleID" Type="int" />
+        </EntityType>
+        <Association Name="FK__Attendanc__Proje__4F7CD00D">
+          <End Role="Project" Type="Self.Project" Multiplicity="1" />
+          <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="Attendance">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Attendanc__UserI__4E88ABD4">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Attendance">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LeaveBala__Leave__5441852A">
+          <End Role="Leave" Type="Self.Leave" Multiplicity="1" />
+          <End Role="LeaveBalance" Type="Self.LeaveBalance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Leave">
+              <PropertyRef Name="LeaveID" />
+            </Principal>
+            <Dependent Role="LeaveBalance">
+              <PropertyRef Name="LeaveID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LeaveBala__UserI__534D60F1">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="LeaveBalance" Type="Self.LeaveBalance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="LeaveBalance">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LeaveHist__Leave__5812160E">
+          <End Role="Leave" Type="Self.Leave" Multiplicity="1" />
+          <End Role="LeaveHistory" Type="Self.LeaveHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Leave">
+              <PropertyRef Name="LeaveID" />
+            </Principal>
+            <Dependent Role="LeaveHistory">
+              <PropertyRef Name="LeaveID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LeaveHist__UserI__571DF1D5">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="LeaveHistory" Type="Self.LeaveHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="LeaveHistory">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LeaveInfo__Leave__5AEE82B9">
+          <End Role="Leave" Type="Self.Leave" Multiplicity="1" />
+          <End Role="LeaveInfo" Type="Self.LeaveInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Leave">
+              <PropertyRef Name="LeaveID" />
+            </Principal>
+            <Dependent Role="LeaveInfo">
+              <PropertyRef Name="LeaveTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LeaveRequ__Leave__49C3F6B7">
+          <End Role="Leave" Type="Self.Leave" Multiplicity="1" />
+          <End Role="LeaveRequest" Type="Self.LeaveRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Leave">
+              <PropertyRef Name="LeaveID" />
+            </Principal>
+            <Dependent Role="LeaveRequest">
+              <PropertyRef Name="LeaveID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LeaveRequ__UserI__48CFD27E">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="LeaveRequest" Type="Self.LeaveRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="LeaveRequest">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__User__GradeID__440B1D61">
+          <End Role="Grade" Type="Self.Grade" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grade">
+              <PropertyRef Name="GradeID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="GradeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__User__ManagerID__4316F928">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="User1" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="User1">
+              <PropertyRef Name="ManagerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__User__RoleID__4222D4EF">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserRoleM__RoleI__6383C8BA">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="UserRoleMapping" Type="Self.UserRoleMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="UserRoleMapping">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserRoleM__UserI__628FA481">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="UserRoleMapping" Type="Self.UserRoleMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserRoleMapping">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assignment_Project">
+          <End Role="Project" Type="Self.Project" Multiplicity="1" />
+          <End Role="EmployeeProjectAssignment" Type="Self.EmployeeProjectAssignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="EmployeeProjectAssignment">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assignment_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="EmployeeProjectAssignment" Type="Self.EmployeeProjectAssignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="EmployeeProjectAssignment">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AttendenceProjectModelStoreContainer">
+          <EntitySet Name="Attendance" EntityType="Self.Attendance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeProjectAssignment" EntityType="Self.EmployeeProjectAssignment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Grade" EntityType="Self.Grade" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Leave" EntityType="Self.Leave" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LeaveBalance" EntityType="Self.LeaveBalance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LeaveHistory" EntityType="Self.LeaveHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LeaveInfo" EntityType="Self.LeaveInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LeaveRequest" EntityType="Self.LeaveRequest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRoleMapping" EntityType="Self.UserRoleMapping" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Attendanc__Proje__4F7CD00D" Association="Self.FK__Attendanc__Proje__4F7CD00D">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="Attendance" EntitySet="Attendance" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Attendanc__UserI__4E88ABD4" Association="Self.FK__Attendanc__UserI__4E88ABD4">
+            <End Role="User" EntitySet="User" />
+            <End Role="Attendance" EntitySet="Attendance" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LeaveBala__Leave__5441852A" Association="Self.FK__LeaveBala__Leave__5441852A">
+            <End Role="Leave" EntitySet="Leave" />
+            <End Role="LeaveBalance" EntitySet="LeaveBalance" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LeaveBala__UserI__534D60F1" Association="Self.FK__LeaveBala__UserI__534D60F1">
+            <End Role="User" EntitySet="User" />
+            <End Role="LeaveBalance" EntitySet="LeaveBalance" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LeaveHist__Leave__5812160E" Association="Self.FK__LeaveHist__Leave__5812160E">
+            <End Role="Leave" EntitySet="Leave" />
+            <End Role="LeaveHistory" EntitySet="LeaveHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LeaveHist__UserI__571DF1D5" Association="Self.FK__LeaveHist__UserI__571DF1D5">
+            <End Role="User" EntitySet="User" />
+            <End Role="LeaveHistory" EntitySet="LeaveHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LeaveInfo__Leave__5AEE82B9" Association="Self.FK__LeaveInfo__Leave__5AEE82B9">
+            <End Role="Leave" EntitySet="Leave" />
+            <End Role="LeaveInfo" EntitySet="LeaveInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LeaveRequ__Leave__49C3F6B7" Association="Self.FK__LeaveRequ__Leave__49C3F6B7">
+            <End Role="Leave" EntitySet="Leave" />
+            <End Role="LeaveRequest" EntitySet="LeaveRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LeaveRequ__UserI__48CFD27E" Association="Self.FK__LeaveRequ__UserI__48CFD27E">
+            <End Role="User" EntitySet="User" />
+            <End Role="LeaveRequest" EntitySet="LeaveRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK__User__GradeID__440B1D61" Association="Self.FK__User__GradeID__440B1D61">
+            <End Role="Grade" EntitySet="Grade" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK__User__ManagerID__4316F928" Association="Self.FK__User__ManagerID__4316F928">
+            <End Role="User" EntitySet="User" />
+            <End Role="User1" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK__User__RoleID__4222D4EF" Association="Self.FK__User__RoleID__4222D4EF">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserRoleM__RoleI__6383C8BA" Association="Self.FK__UserRoleM__RoleI__6383C8BA">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="UserRoleMapping" EntitySet="UserRoleMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserRoleM__UserI__628FA481" Association="Self.FK__UserRoleM__UserI__628FA481">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserRoleMapping" EntitySet="UserRoleMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Assignment_Project" Association="Self.FK_Assignment_Project">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="EmployeeProjectAssignment" EntitySet="EmployeeProjectAssignment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Assignment_User" Association="Self.FK_Assignment_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="EmployeeProjectAssignment" EntitySet="EmployeeProjectAssignment" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AttendenceProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Attendance">
+          <Key>
+            <PropertyRef Name="AttendanceID" />
+          </Key>
+          <Property Name="AttendanceID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="ProjectID" Type="Int32" Nullable="false" />
+          <Property Name="AttendanceDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="HoursWorked" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="IsPending" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Project" Relationship="Self.FK__Attendanc__Proje__4F7CD00D" FromRole="Attendance" ToRole="Project" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Attendanc__UserI__4E88ABD4" FromRole="Attendance" ToRole="User" />
+        </EntityType>
+        <EntityType Name="EmployeeProjectAssignment">
+          <Key>
+            <PropertyRef Name="AssignmentID" />
+          </Key>
+          <Property Name="AssignmentID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="ProjectID" Type="Int32" Nullable="false" />
+          <Property Name="AssignmentDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Project" Relationship="Self.FK_Assignment_Project" FromRole="EmployeeProjectAssignment" ToRole="Project" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Assignment_User" FromRole="EmployeeProjectAssignment" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Grade">
+          <Key>
+            <PropertyRef Name="GradeID" />
+          </Key>
+          <Property Name="GradeID" Type="Int32" Nullable="false" />
+          <Property Name="GradeName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TotalCasualLeave" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__User__GradeID__440B1D61" FromRole="Grade" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Leave">
+          <Key>
+            <PropertyRef Name="LeaveID" />
+          </Key>
+          <Property Name="LeaveID" Type="Int32" Nullable="false" />
+          <Property Name="LeaveType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="LeaveBalances" Relationship="Self.FK__LeaveBala__Leave__5441852A" FromRole="Leave" ToRole="LeaveBalance" />
+          <NavigationProperty Name="LeaveHistories" Relationship="Self.FK__LeaveHist__Leave__5812160E" FromRole="Leave" ToRole="LeaveHistory" />
+          <NavigationProperty Name="LeaveInfoes" Relationship="Self.FK__LeaveInfo__Leave__5AEE82B9" FromRole="Leave" ToRole="LeaveInfo" />
+          <NavigationProperty Name="LeaveRequests" Relationship="Self.FK__LeaveRequ__Leave__49C3F6B7" FromRole="Leave" ToRole="LeaveRequest" />
+        </EntityType>
+        <EntityType Name="LeaveBalance">
+          <Key>
+            <PropertyRef Name="LeaveBalanceID" />
+          </Key>
+          <Property Name="LeaveBalanceID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="LeaveID" Type="Int32" Nullable="false" />
+          <Property Name="Balance" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Leave" Relationship="Self.FK__LeaveBala__Leave__5441852A" FromRole="LeaveBalance" ToRole="Leave" />
+          <NavigationProperty Name="User" Relationship="Self.FK__LeaveBala__UserI__534D60F1" FromRole="LeaveBalance" ToRole="User" />
+        </EntityType>
+        <EntityType Name="LeaveHistory">
+          <Key>
+            <PropertyRef Name="LeaveHistoryID" />
+          </Key>
+          <Property Name="LeaveHistoryID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="LeaveID" Type="Int32" Nullable="false" />
+          <Property Name="LeaveDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Leave" Relationship="Self.FK__LeaveHist__Leave__5812160E" FromRole="LeaveHistory" ToRole="Leave" />
+          <NavigationProperty Name="User" Relationship="Self.FK__LeaveHist__UserI__571DF1D5" FromRole="LeaveHistory" ToRole="User" />
+        </EntityType>
+        <EntityType Name="LeaveInfo">
+          <Key>
+            <PropertyRef Name="LeaveInfoID" />
+          </Key>
+          <Property Name="LeaveInfoID" Type="Int32" Nullable="false" />
+          <Property Name="DayOfWeek" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LeaveDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="LeaveTypeID" Type="Int32" Nullable="false" />
+          <Property Name="HolidayName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Leave" Relationship="Self.FK__LeaveInfo__Leave__5AEE82B9" FromRole="LeaveInfo" ToRole="Leave" />
+        </EntityType>
+        <EntityType Name="LeaveRequest">
+          <Key>
+            <PropertyRef Name="LeaveRequestID" />
+          </Key>
+          <Property Name="LeaveRequestID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="LeaveID" Type="Int32" Nullable="false" />
+          <Property Name="FromDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ToDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="TotalDays" Type="Int32" Nullable="false" />
+          <Property Name="AppliedDate" Type="DateTime" Precision="0" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Reason" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Leave" Relationship="Self.FK__LeaveRequ__Leave__49C3F6B7" FromRole="LeaveRequest" ToRole="Leave" />
+          <NavigationProperty Name="User" Relationship="Self.FK__LeaveRequ__UserI__48CFD27E" FromRole="LeaveRequest" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="ProjectID" Type="Int32" Nullable="false" />
+          <Property Name="ProjectName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProjectStartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ProjectEndDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Attendances" Relationship="Self.FK__Attendanc__Proje__4F7CD00D" FromRole="Project" ToRole="Attendance" />
+          <NavigationProperty Name="EmployeeProjectAssignments" Relationship="Self.FK_Assignment_Project" FromRole="Project" ToRole="EmployeeProjectAssignment" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <Property Name="RoleName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__User__RoleID__4222D4EF" FromRole="Role" ToRole="User" />
+          <NavigationProperty Name="UserRoleMappings" Relationship="Self.FK__UserRoleM__RoleI__6383C8BA" FromRole="Role" ToRole="UserRoleMapping" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <Property Name="GradeID" Type="Int32" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmailID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="HireDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ManagerID" Type="Int32" />
+          <Property Name="Status" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Salary" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Attendances" Relationship="Self.FK__Attendanc__UserI__4E88ABD4" FromRole="User" ToRole="Attendance" />
+          <NavigationProperty Name="EmployeeProjectAssignments" Relationship="Self.FK_Assignment_User" FromRole="User" ToRole="EmployeeProjectAssignment" />
+          <NavigationProperty Name="Grade" Relationship="Self.FK__User__GradeID__440B1D61" FromRole="User" ToRole="Grade" />
+          <NavigationProperty Name="LeaveBalances" Relationship="Self.FK__LeaveBala__UserI__534D60F1" FromRole="User" ToRole="LeaveBalance" />
+          <NavigationProperty Name="LeaveHistories" Relationship="Self.FK__LeaveHist__UserI__571DF1D5" FromRole="User" ToRole="LeaveHistory" />
+          <NavigationProperty Name="LeaveRequests" Relationship="Self.FK__LeaveRequ__UserI__48CFD27E" FromRole="User" ToRole="LeaveRequest" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__User__RoleID__4222D4EF" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="User1" Relationship="Self.FK__User__ManagerID__4316F928" FromRole="User" ToRole="User1" />
+          <NavigationProperty Name="User2" Relationship="Self.FK__User__ManagerID__4316F928" FromRole="User1" ToRole="User" />
+          <NavigationProperty Name="UserRoleMappings" Relationship="Self.FK__UserRoleM__UserI__628FA481" FromRole="User" ToRole="UserRoleMapping" />
+        </EntityType>
+        <EntityType Name="UserRoleMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="RoleID" Type="Int32" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__UserRoleM__RoleI__6383C8BA" FromRole="UserRoleMapping" ToRole="Role" />
+          <NavigationProperty Name="User" Relationship="Self.FK__UserRoleM__UserI__628FA481" FromRole="UserRoleMapping" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__Attendanc__Proje__4F7CD00D">
+          <End Role="Project" Type="Self.Project" Multiplicity="1" />
+          <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="Attendance">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Attendanc__UserI__4E88ABD4">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Attendance">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assignment_Project">
+          <End Role="Project" Type="Self.Project" Multiplicity="1" />
+          <End Role="EmployeeProjectAssignment" Type="Self.EmployeeProjectAssignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="EmployeeProjectAssignment">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assignment_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="EmployeeProjectAssignment" Type="Self.EmployeeProjectAssignment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="EmployeeProjectAssignment">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__User__GradeID__440B1D61">
+          <End Role="Grade" Type="Self.Grade" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grade">
+              <PropertyRef Name="GradeID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="GradeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LeaveBala__Leave__5441852A">
+          <End Role="Leave" Type="Self.Leave" Multiplicity="1" />
+          <End Role="LeaveBalance" Type="Self.LeaveBalance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Leave">
+              <PropertyRef Name="LeaveID" />
+            </Principal>
+            <Dependent Role="LeaveBalance">
+              <PropertyRef Name="LeaveID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LeaveHist__Leave__5812160E">
+          <End Role="Leave" Type="Self.Leave" Multiplicity="1" />
+          <End Role="LeaveHistory" Type="Self.LeaveHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Leave">
+              <PropertyRef Name="LeaveID" />
+            </Principal>
+            <Dependent Role="LeaveHistory">
+              <PropertyRef Name="LeaveID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LeaveInfo__Leave__5AEE82B9">
+          <End Role="Leave" Type="Self.Leave" Multiplicity="1" />
+          <End Role="LeaveInfo" Type="Self.LeaveInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Leave">
+              <PropertyRef Name="LeaveID" />
+            </Principal>
+            <Dependent Role="LeaveInfo">
+              <PropertyRef Name="LeaveTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LeaveRequ__Leave__49C3F6B7">
+          <End Role="Leave" Type="Self.Leave" Multiplicity="1" />
+          <End Role="LeaveRequest" Type="Self.LeaveRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Leave">
+              <PropertyRef Name="LeaveID" />
+            </Principal>
+            <Dependent Role="LeaveRequest">
+              <PropertyRef Name="LeaveID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LeaveBala__UserI__534D60F1">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="LeaveBalance" Type="Self.LeaveBalance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="LeaveBalance">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LeaveHist__UserI__571DF1D5">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="LeaveHistory" Type="Self.LeaveHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="LeaveHistory">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LeaveRequ__UserI__48CFD27E">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="LeaveRequest" Type="Self.LeaveRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="LeaveRequest">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__User__RoleID__4222D4EF">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserRoleM__RoleI__6383C8BA">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="UserRoleMapping" Type="Self.UserRoleMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="UserRoleMapping">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__User__ManagerID__4316F928">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="User1" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="User1">
+              <PropertyRef Name="ManagerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserRoleM__UserI__628FA481">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="UserRoleMapping" Type="Self.UserRoleMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserRoleMapping">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AttendenceProjectEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Attendances" EntityType="Self.Attendance" />
+          <EntitySet Name="EmployeeProjectAssignments" EntityType="Self.EmployeeProjectAssignment" />
+          <EntitySet Name="Grades" EntityType="Self.Grade" />
+          <EntitySet Name="Leaves" EntityType="Self.Leave" />
+          <EntitySet Name="LeaveBalances" EntityType="Self.LeaveBalance" />
+          <EntitySet Name="LeaveHistories" EntityType="Self.LeaveHistory" />
+          <EntitySet Name="LeaveInfoes" EntityType="Self.LeaveInfo" />
+          <EntitySet Name="LeaveRequests" EntityType="Self.LeaveRequest" />
+          <EntitySet Name="Projects" EntityType="Self.Project" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="UserRoleMappings" EntityType="Self.UserRoleMapping" />
+          <AssociationSet Name="FK__Attendanc__Proje__4F7CD00D" Association="Self.FK__Attendanc__Proje__4F7CD00D">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="Attendance" EntitySet="Attendances" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Attendanc__UserI__4E88ABD4" Association="Self.FK__Attendanc__UserI__4E88ABD4">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Attendance" EntitySet="Attendances" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Assignment_Project" Association="Self.FK_Assignment_Project">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="EmployeeProjectAssignment" EntitySet="EmployeeProjectAssignments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Assignment_User" Association="Self.FK_Assignment_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="EmployeeProjectAssignment" EntitySet="EmployeeProjectAssignments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__User__GradeID__440B1D61" Association="Self.FK__User__GradeID__440B1D61">
+            <End Role="Grade" EntitySet="Grades" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LeaveBala__Leave__5441852A" Association="Self.FK__LeaveBala__Leave__5441852A">
+            <End Role="Leave" EntitySet="Leaves" />
+            <End Role="LeaveBalance" EntitySet="LeaveBalances" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LeaveHist__Leave__5812160E" Association="Self.FK__LeaveHist__Leave__5812160E">
+            <End Role="Leave" EntitySet="Leaves" />
+            <End Role="LeaveHistory" EntitySet="LeaveHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LeaveInfo__Leave__5AEE82B9" Association="Self.FK__LeaveInfo__Leave__5AEE82B9">
+            <End Role="Leave" EntitySet="Leaves" />
+            <End Role="LeaveInfo" EntitySet="LeaveInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LeaveRequ__Leave__49C3F6B7" Association="Self.FK__LeaveRequ__Leave__49C3F6B7">
+            <End Role="Leave" EntitySet="Leaves" />
+            <End Role="LeaveRequest" EntitySet="LeaveRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LeaveBala__UserI__534D60F1" Association="Self.FK__LeaveBala__UserI__534D60F1">
+            <End Role="User" EntitySet="Users" />
+            <End Role="LeaveBalance" EntitySet="LeaveBalances" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LeaveHist__UserI__571DF1D5" Association="Self.FK__LeaveHist__UserI__571DF1D5">
+            <End Role="User" EntitySet="Users" />
+            <End Role="LeaveHistory" EntitySet="LeaveHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LeaveRequ__UserI__48CFD27E" Association="Self.FK__LeaveRequ__UserI__48CFD27E">
+            <End Role="User" EntitySet="Users" />
+            <End Role="LeaveRequest" EntitySet="LeaveRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK__User__RoleID__4222D4EF" Association="Self.FK__User__RoleID__4222D4EF">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserRoleM__RoleI__6383C8BA" Association="Self.FK__UserRoleM__RoleI__6383C8BA">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="UserRoleMapping" EntitySet="UserRoleMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__User__ManagerID__4316F928" Association="Self.FK__User__ManagerID__4316F928">
+            <End Role="User" EntitySet="Users" />
+            <End Role="User1" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserRoleM__UserI__628FA481" Association="Self.FK__UserRoleM__UserI__628FA481">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserRoleMapping" EntitySet="UserRoleMappings" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AttendenceProjectModelStoreContainer" CdmEntityContainer="AttendenceProjectEntities">
+          <EntitySetMapping Name="Attendances">
+            <EntityTypeMapping TypeName="AttendenceProjectModel.Attendance">
+              <MappingFragment StoreEntitySet="Attendance">
+                <ScalarProperty Name="AttendanceID" ColumnName="AttendanceID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="AttendanceDate" ColumnName="AttendanceDate" />
+                <ScalarProperty Name="HoursWorked" ColumnName="HoursWorked" />
+                <ScalarProperty Name="IsPending" ColumnName="IsPending" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeProjectAssignments">
+            <EntityTypeMapping TypeName="AttendenceProjectModel.EmployeeProjectAssignment">
+              <MappingFragment StoreEntitySet="EmployeeProjectAssignment">
+                <ScalarProperty Name="AssignmentID" ColumnName="AssignmentID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="AssignmentDate" ColumnName="AssignmentDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Grades">
+            <EntityTypeMapping TypeName="AttendenceProjectModel.Grade">
+              <MappingFragment StoreEntitySet="Grade">
+                <ScalarProperty Name="GradeID" ColumnName="GradeID" />
+                <ScalarProperty Name="GradeName" ColumnName="GradeName" />
+                <ScalarProperty Name="TotalCasualLeave" ColumnName="TotalCasualLeave" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Leaves">
+            <EntityTypeMapping TypeName="AttendenceProjectModel.Leave">
+              <MappingFragment StoreEntitySet="Leave">
+                <ScalarProperty Name="LeaveID" ColumnName="LeaveID" />
+                <ScalarProperty Name="LeaveType" ColumnName="LeaveType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LeaveBalances">
+            <EntityTypeMapping TypeName="AttendenceProjectModel.LeaveBalance">
+              <MappingFragment StoreEntitySet="LeaveBalance">
+                <ScalarProperty Name="LeaveBalanceID" ColumnName="LeaveBalanceID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="LeaveID" ColumnName="LeaveID" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LeaveHistories">
+            <EntityTypeMapping TypeName="AttendenceProjectModel.LeaveHistory">
+              <MappingFragment StoreEntitySet="LeaveHistory">
+                <ScalarProperty Name="LeaveHistoryID" ColumnName="LeaveHistoryID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="LeaveID" ColumnName="LeaveID" />
+                <ScalarProperty Name="LeaveDate" ColumnName="LeaveDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LeaveInfoes">
+            <EntityTypeMapping TypeName="AttendenceProjectModel.LeaveInfo">
+              <MappingFragment StoreEntitySet="LeaveInfo">
+                <ScalarProperty Name="LeaveInfoID" ColumnName="LeaveInfoID" />
+                <ScalarProperty Name="DayOfWeek" ColumnName="DayOfWeek" />
+                <ScalarProperty Name="LeaveDate" ColumnName="LeaveDate" />
+                <ScalarProperty Name="LeaveTypeID" ColumnName="LeaveTypeID" />
+                <ScalarProperty Name="HolidayName" ColumnName="HolidayName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LeaveRequests">
+            <EntityTypeMapping TypeName="AttendenceProjectModel.LeaveRequest">
+              <MappingFragment StoreEntitySet="LeaveRequest">
+                <ScalarProperty Name="LeaveRequestID" ColumnName="LeaveRequestID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="LeaveID" ColumnName="LeaveID" />
+                <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+                <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+                <ScalarProperty Name="TotalDays" ColumnName="TotalDays" />
+                <ScalarProperty Name="AppliedDate" ColumnName="AppliedDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projects">
+            <EntityTypeMapping TypeName="AttendenceProjectModel.Project">
+              <MappingFragment StoreEntitySet="Project">
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ProjectStartDate" ColumnName="ProjectStartDate" />
+                <ScalarProperty Name="ProjectEndDate" ColumnName="ProjectEndDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="AttendenceProjectModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="AttendenceProjectModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="GradeID" ColumnName="GradeID" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="HireDate" ColumnName="HireDate" />
+                <ScalarProperty Name="ManagerID" ColumnName="ManagerID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoleMappings">
+            <EntityTypeMapping TypeName="AttendenceProjectModel.UserRoleMapping">
+              <MappingFragment StoreEntitySet="UserRoleMapping">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
