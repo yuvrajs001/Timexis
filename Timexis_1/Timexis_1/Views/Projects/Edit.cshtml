@@ -1,61 +1,189 @@
-﻿@model Timexis_1.Models.Project
+﻿
+@model Timexis_1.Models.Project
 
 @{
-    ViewBag.Title = "Edit";
+                ViewBag.Title = "Edit";
+
 }
 
-<h2>Edit</h2>
+<!DOCTYPE html>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Project</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ProjectID)
+<html>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ProjectName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ProjectName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ProjectName, "", new { @class = "text-danger" })
-            </div>
-        </div>
+<head>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    <meta charset="utf-8" />
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ProjectStartDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ProjectStartDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ProjectStartDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    <title>@ViewBag.Title</title>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ProjectEndDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ProjectEndDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ProjectEndDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    <style>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
+        /* Global styles */
+
+        body {
+            background-image: url('../../Image/background_Index 1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #f2f2f2;
+            margin-top: 50px;
+            font-family: Argent CF;
+        }
+
+        .form-horizontal {
+            width: 80%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 25px;
+            color: cornsilk;
+            box-shadow: 10px 10px 20px 10px rgba(0.7, 0.7, 0.7, 0.7);
+            background: linear-gradient(to right, rgba(50, 0, 116, 0.78), rgba(18 163 180)) no-repeat;
+            background-size: cover;
+            transition: box-shadow 0.3s ease;
+            font-family: Argent CF;
+        }
+
+        .control-label {
+            color: cornsilk;
+            font-weight: bold;
+        }
+
+        .form-control {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+            margin-left: auto; /* Adjusted to 10px as requested */
+        }
+
+        .text-danger {
+            color: #dc3545;
+            font-size: 12px;
+        }
+
+        .btn-default {
+            background-color: rgb(9 94 153);
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-left: 120px;
+        }
+
+            .btn-default:hover {
+                background-color: #ccc;
+            }
+
+        /* Media query for smaller screens */
+
+        media screen and (max-width: 768px) {
+            .form-horizontal
+
+        {
+            width: 90%;
+        }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    @using (Html.BeginForm())
+
+    {
+
+        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+
+                            <h4>Project</h4>
+
+                            <hr />
+
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            @Html.HiddenFor(model => model.ProjectID)
+
+                            <div class="form-group">
+
+                                @Html.LabelFor(model => model.ProjectName, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                                <div class="col-md-10">
+
+                                    @Html.EditorFor(model => model.ProjectName, new { htmlAttributes = new { @class = "form-control" } })
+
+                                    @Html.ValidationMessageFor(model => model.ProjectName, "", new { @class = "text-danger" })
+
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                                <div class="col-md-10">
+
+                                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+
+                                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                @Html.LabelFor(model => model.ProjectStartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                                <div class="col-md-10">
+
+                                    @Html.EditorFor(model => model.ProjectStartDate, new { htmlAttributes = new { @class = "form-control" } })
+
+                                    @Html.ValidationMessageFor(model => model.ProjectStartDate, "", new { @class = "text-danger" })
+
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                @Html.LabelFor(model => model.ProjectEndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                                <div class="col-md-10">
+
+                                    @Html.EditorFor(model => model.ProjectEndDate, new { htmlAttributes = new { @class = "form-control" } })
+
+                                    @Html.ValidationMessageFor(model => model.ProjectEndDate, "", new { @class = "text-danger" })
+
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <div class="col-md-offset-2 col-md-10">
+
+                                    <input type="submit" value="Save" class="btn btn-default" />
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                                    }
+
+    <div>
+
+        @Html.ActionLink("Go Back", "Index", null, new { @class = "btn btn-default", style = "margin-left: 10px;" })
+
     </div>
-}
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+</body>
+
+</html>

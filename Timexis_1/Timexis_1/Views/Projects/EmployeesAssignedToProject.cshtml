@@ -1,25 +1,131 @@
-﻿@model List<Timexis_1.Models.User>
+﻿@*@model List<Timexis_1.Models.User>
 
-@{ ViewBag.Title = "EmployeesAssignedToProject"; }
+    @{ ViewBag.Title = "EmployeesAssignedToProject"; }
 
-<h2>Employees Assigned to Project</h2>
+    <h2>Employees Assigned to Project</h2>
 
-@using (Html.BeginForm("EmployeesAssignedToProject", "Projects", FormMethod.Get))
-{
-<div class="form-group">
-    @Html.Label("Project ID:")
-    @Html.TextBox("projectId", null, new { @class = "form-control" })
-</div>
-                <button type="submit" class="btn btn-primary">Submit</button>}
-
-@if (Model != null && Model.Any())
-{
-<ul>
-    @foreach (var employee in Model)
+    @using (Html.BeginForm("EmployeesAssignedToProject", "Projects", FormMethod.Get))
     {
-<li>@employee.FullName - @employee.EmailID</li>}
-</ul> }
-            else
-            {
-<p>No employees assigned to the project.</p>
-                <a href="@Url.Action("AssignProject", "Projects")" class="btn btn-primary">Assign Project</a>}
+    <div class="form-group">
+        @Html.Label("Project ID:")
+        @Html.TextBox("projectId", null, new { @class = "form-control" })
+    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <a href="@Url.Action("ManagerDashboard", "Navigation")" class="btn btn-primary">Go Back</a>}
+
+
+
+    @if (Model != null && Model.Any())
+    {
+    <ul>
+        @foreach (var employee in Model)
+        {
+    <li>@employee.FullName - @employee.EmailID</li>}
+    </ul> }
+    else
+    {
+    <p>No employees assigned to the project.</p>*@
+@*<a href="@Url.Action("AssignProject", "Projects")" class="btn btn-primary">Assign Project</a>}*@
+
+@model List<Timexis_1.Models.User>
+
+@{
+    ViewBag.Title = "EmployeesAssignedToProject";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Argent CF;
+            background-image: url('../../Image/background_Index 1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #f2f2f2; /* Fallback color */
+            padding-top: 50px; /* Adjust top padding for better visibility */
+            margin-top: 40px;
+            height: 100vh;
+        }
+        .message-box {
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 20px;
+            margin-top:10px;
+            color:black;
+        }
+
+        .employee-list {
+            list-style-type: none;
+            padding: 0;
+            margin-top:10px;
+        }
+
+            .employee-list li {
+                margin-bottom: 10px;
+            }
+        .form-horizontal {
+            width: 80%; /* Adjust width for better responsiveness */
+            max-width: 600px; /* Set maximum width to prevent stretching on larger screens */
+            margin: 0 auto;
+            padding: 25px;
+            color: cornsilk;
+            font-family: Argent CF;
+            box-shadow: 10px 10px 20px 10px rgba(0.7, 0.7, 0.7, 0.7);
+            background: linear-gradient(to right, rgba(50, 0, 116, 0.78), rgba(242, 0, 123, 0.70)) no-repeat;
+            background-size: cover; /* Ensure background covers the entire element */
+            transition: box-shadow 0.3s ease;
+            margin-top: 20px;
+        }
+       h2{
+           margin-left:15%;
+       }
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .form-group label {
+            margin-left: 10px;
+        }    
+    </style>
+</head>
+<body>
+    <div class="form-horizontal">
+    <h2>Employees Assigned to Project</h2>
+
+    @using (Html.BeginForm("EmployeesAssignedToProject", "Projects", FormMethod.Get))
+    {
+        <div class="form-group">
+            @Html.Label("Project ID:")
+            @Html.TextBox("projectId", null, new { @class = "form-control" })
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a href="@Url.Action("CommonDasboardAfterLogin", "Users")" class="btn btn-primary">Go Back</a>
+    }
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="message-box">
+            <ul class="employee-list">
+                @foreach (var employee in Model)
+                {
+                    <li>@employee.FullName - @employee.EmailID</li>
+                }
+            </ul>
+        </div>
+    }
+    else
+    {
+        <div class="message-box">
+            <p>No employees assigned to the project.</p>
+            <a href="@Url.Action("AssignProject", "Projects")" class="btn btn-primary">Assign Project</a>
+        </div>
+    }
+
+</div>
+</body>
+</html>

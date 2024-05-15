@@ -15,6 +15,7 @@ namespace Timexis_1.Controllers
         private AttendenceProjectEntities1 db = new AttendenceProjectEntities1();
 
         // GET: Projects
+        [Authorize(Roles ="Admin")]
         public ActionResult Index()
         {
             return View(db.Projects.ToList());
@@ -183,7 +184,7 @@ namespace Timexis_1.Controllers
         }
 
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Manager")]
         public ActionResult EmployeesAssignedToProject(int? projectId)
         {
             if (projectId == null)

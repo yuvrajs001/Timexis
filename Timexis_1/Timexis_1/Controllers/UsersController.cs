@@ -135,7 +135,7 @@ namespace Timexis_1.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        [Authorize(Roles ="Admin")]
         public ActionResult Approve()
         {
             ViewBag.RoleID = new SelectList(db.Roles, "RoleID", "RoleName");

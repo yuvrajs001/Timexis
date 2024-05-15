@@ -4,7 +4,91 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <style>
+        body {
+            font-family: Argent CF;
+            background-image: url('../../Image/background_Index 1.jpg');            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #f2f2f2; /* Fallback color */
+            padding-top: 50px; /* Adjust top padding for better visibility */
+            margin-top: 40px;
+        }
+
+        /* Style for form */
+        .form-horizontal {
+            width: 80%; /* Adjust width for better responsiveness */
+            max-width: 600px; /* Set maximum width to prevent stretching on larger screens */
+            margin: 0 auto;
+            padding: 25px;
+            color: cornsilk;
+            box-shadow: 10px 10px 20px 10px rgba(0.7, 0.7, 0.7, 0.7);
+            background: linear-gradient(to right, rgba(50, 0, 116, 0.78), rgba(18 163 180)) no-repeat;
+            background-size: cover; /* Ensure background covers the entire element */
+            transition: box-shadow 0.3s ease;
+            font-family: Argent CF;
+        }
+
+        /* Style for form labels */
+        .control-label {
+            color: cornsilk;
+            font-weight: bold;
+        }
+
+        /* Style for form inputs */
+        .form-control {
+            width: 80%; /* Adjust width to fill the container */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+            margin: auto;
+        }
+
+        /* Style for validation messages */
+        .text-danger {
+            color: #dc3545; /* Red color for error messages */
+            font-size: 12px;
+        }
+
+        /* Style for submit button */
+        .btn-default {
+            background-color: #03ba82; /* Blue color for the button */
+            color: #fff; /* White text color */
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-top: 10px; /* Add some space at the top */
+            margin-left:120px;
+        }
+
+        /* Hover effect for button */
+        .btn-default:hover {
+            background-color: #AD88C6; /* Darker blue color on hover */
+        }
+
+        /* Media query for smaller screens */
+        media screen and (max-width: 768px) {
+            .form-horizontal {
+                width: 90%; /* Adjust width for smaller screens */
+            }
+        }
+
+        h3 {
+            margin-left: 40%;
+            font-weight: bold;
+        }
+    </style>
+    </head>
+    <body>
+
 
 @using (Html.BeginForm())
 {
@@ -64,7 +148,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index",null,new { @class = "btn btn-default", style = "margin-left: 10px;" })
 </div>
 
 @section Scripts {
@@ -85,3 +169,6 @@
         });
     </script>
 }
+
+        </body>
+</html>

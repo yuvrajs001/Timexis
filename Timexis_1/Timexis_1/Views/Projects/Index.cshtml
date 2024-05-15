@@ -1,51 +1,199 @@
 ﻿@model IEnumerable<Timexis_1.Models.Project>
 
 @{
-    ViewBag.Title = "Index";
+                ViewBag.Title = "Index";
+
 }
 
-<h2>Index</h2>
+<!DOCTYPE html>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ProjectName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProjectStartDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProjectEndDate)
-        </th>
-        <th></th>
-    </tr>
+<html>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProjectName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProjectStartDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProjectEndDate)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ProjectID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ProjectID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ProjectID })
-        </td>
-    </tr>
-}
+<head>
 
-</table>
+    <meta charset="utf-8" />
+
+    <title>@ViewBag.Title</title>
+
+    <style>
+
+        body {
+            font-family: Argent CF;
+            background-image: url('../../Image/background_Index 1.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            margin-top: 50px;
+            height: 100vh;
+        }
+
+        .container {
+            padding: 10px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            padding: 10px;
+        }
+
+            .table th, .table td {
+                padding: 8px;
+                border-bottom: 1px solid #ddd;
+                text-align: left;
+            }
+
+            .table th {
+                background-color: #333;
+            }
+
+            .table tr:nth-child(even) {
+                background-color: #555;
+            }
+
+            .table tr:hover {
+                background-color: #777;
+            }
+
+        .btn {
+            background-color: #03ba82;
+            color: white;
+            padding: 6px 6px;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+            .btn:hover {
+                background-color: #AD88C6;
+            }
+
+        .button-container {
+            text-align: center;
+            margin-left: 0;
+        }
+
+        /* Media queries for responsiveness */
+
+        media screen and (max-width: 768px) {
+            .container
+
+        {
+            padding: 5px;
+        }
+
+        .table th,
+        .table td {
+            padding: 6px;
+        }
+
+        .btn-edit {
+            background-color: rgb(9 94 153); /* Blue color for the button */
+
+            color: white; /* White text color */
+
+            border: none;
+            border-radius: 4px;
+            padding: 6px 6px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+            .btn-edit:hover {
+                background-color: #ccc; /* Darker blue color on hover */
+            }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <table class="table">
+
+            <tr>
+
+                <th>
+
+                    @Html.DisplayNameFor(model => model.ProjectName)
+
+                </th>
+
+                <th>
+
+                    @Html.DisplayNameFor(model => model.Description)
+
+                </th>
+
+                <th>
+
+                    @Html.DisplayNameFor(model => model.ProjectStartDate)
+
+                </th>
+
+                <th>
+
+                    @Html.DisplayNameFor(model => model.ProjectEndDate)
+
+                </th>
+
+                <th></th>
+
+            </tr>
+
+            @foreach (var item in Model)
+
+            {
+
+                <tr>
+
+                    <td>
+
+                        @Html.DisplayFor(modelItem => item.ProjectName)
+
+                    </td>
+
+                    <td>
+
+                        @Html.DisplayFor(modelItem => item.Description)
+
+                    </td>
+
+                    <td>
+
+                        @Html.DisplayFor(modelItem => item.ProjectStartDate)
+
+                    </td>
+
+                    <td>
+
+                        @Html.DisplayFor(modelItem => item.ProjectEndDate)
+
+                    </td>
+
+                    <td>
+
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ProjectID }, new { @class = "btn btn-edit" })
+
+                    </td>
+
+                </tr>
+                            }
+
+        </table>
+
+        <p class="button-container">
+
+            <button onclick="location.href='@Url.Action("Create", "Projects")'" class="btn">Create New</button>
+            <button onclick="location.href='@Url.Action("AdminDashboard", "Navigation")'" class="btn">Go Back </button>
+ </p>
+
+    </div>
+
+</body>
+
+</html>

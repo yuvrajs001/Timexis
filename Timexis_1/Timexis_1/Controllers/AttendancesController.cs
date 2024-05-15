@@ -55,12 +55,15 @@ namespace Timexis_1.Controllers
             User em = db.Users.SingleOrDefault(a => a.UserID == id);
             var lr = db.LeaveRequests.Where(a => a.UserID== em.UserID).ToList();
             DateTime currentDate = DateTime.Now.Date;
-            var z = lr.Where(a => a.FromDate == currentDate);
+            //var z = lr.FirstOrDefault(a => a.UserID == id && a.FromDate == currentDate && a=>a.Status=="Approved");
+            var z = lr.FirstOrDefault(a => a.UserID == id && a.FromDate == currentDate && a.Status == "Approved");
+
+            //var x = lr.FirstOrDefault(t => t.FromDate == currentDate);
             Attendance xyz = db.Attendances.FirstOrDefault(a => a.UserID == id && a.AttendanceDate == currentDate);
             string dayOfWeekString = DateTime.Now.DayOfWeek.ToString();
             if (dayOfWeekString != "Saturday" || dayOfWeekString != "Sunday")
             {
-                if (z != null)
+                if (z == null)
                 {
                     if (xyz == null)
                     {

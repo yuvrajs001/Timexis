@@ -6,9 +6,6 @@
 
 <h2>ApproveAttendence</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -29,28 +26,31 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.AttendanceDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HoursWorked)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Approval)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Project.ProjectName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.FullName)
-        </td>
-        <td>
-            @Html.ActionLink("Approve", "Edit", new { id=item.AttendanceID }) 
-           
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AttendanceDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoursWorked)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Approval)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Project.ProjectName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.FullName)
+            </td>
+            <td>
+                @Html.ActionLink("Approve", "Edit", new { id = item.AttendanceID })
+            </td>
+        </tr>
+    }
 </table>
+
+<div class="text-center">
+    <a href="@Url.Action("CommonDasboardAfterLogin", "Users")" class="btn btn-primary">Go Back</a>
+</div>

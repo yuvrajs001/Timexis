@@ -4,13 +4,19 @@
     <meta charset="utf-8" />
     <title>@ViewBag.Title - My Application</title>
     <style>
+        body {
+            background-image: url('../../Image/background_Index 1.jpg');
+            height: 100vh;
+        }
         .container {
-            margin: 20px;
+            margin-top: 20px;
+
         }
 
         .box-container {
             display: flex;
             justify-content: center; /* Center the box container horizontally */
+            margin-top:30px;
         }
 
         .box {
@@ -19,8 +25,8 @@
             padding: 20px;
             margin-top: 20px; /* Add margin to create space between the box container and other elements */
             width: 300px; /* Adjust the width of the box as needed */
-            background-color: #f9f9f9;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow effect */
+            box-shadow: 1px 1px 2px 1px rgba(0.2, 0.2, 0.2, 0.2);
+            background: rgb(5 144 199);
         }
 
         .box-title {
@@ -55,9 +61,28 @@
         .side{
             display:flex
         }
+        .btn-profile {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+            .btn-profile:hover {
+                background-color: #0056b3;
+                text-decoration: none;
+            }
+
     </style>
 </head>
 <body>
+    <div class="profile-container">
+        <a href="@Url.Action("Details", "Users",new { id=ViewBag.UserID})" class="btn-profile">Profile</a>
+    </div>
     <div class="side">
         <div class="container">
             <div class="header">
@@ -81,6 +106,7 @@
                         <h5 class="box-title">User Actions</h5>
                         <ul class="nav">
                             <li>@Html.ActionLink("All User", "Index", "Users")</li>
+                            <li>@Html.ActionLink("Approve User", "Approve", "Users")</li>
                             <li>@Html.ActionLink("Create User", "Create", "Users")</li>
                         </ul>
                     </div>
@@ -88,11 +114,6 @@
             </div>
         </div>
     </div>
-    
-    <div class="profile-container">
-        <a href="@Url.Action("Details", "Users")">Profile</a>
-    </div>
-
     <footer>
         <!-- Footer content -->
     </footer>

@@ -18,6 +18,7 @@ namespace Timexis_1.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult AdminDashboard()
         {
+            ViewBag.UserID = Session["UserID"];
             return View();
         }
         [Authorize(Roles = "Manager")]

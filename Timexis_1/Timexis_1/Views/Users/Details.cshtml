@@ -1,113 +1,166 @@
 ﻿@model Timexis_1.Models.User
 
 @{
-    ViewBag.Title = "Details";
+                ViewBag.Title = "Details";
+
 }
 
-<h2>Details</h2>
+<!DOCTYPE html>
 
-<div>
-    <h4>User</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.FullName)
-        </dt>
+<html lang="en">
 
-        <dd>
-            @Html.DisplayFor(model => model.FullName)
-        </dd>
+<head>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.EmailID)
-        </dt>
+    <meta charset="UTF-8">
 
-        <dd>
-            @Html.DisplayFor(model => model.EmailID)
-        </dd>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
+    <title>@ViewBag.Title</title>
 
-        <dd>
-            @Html.DisplayFor(model => model.Address)
-        </dd>
+    <style>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </dt>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-image: url('../../Image/background_Index 1.jpg');
+           
+            background-size: cover;
+            background-position: center;
+            padding-top: 70px;
+            margin: 0;
+        }
 
-        <dd>
-            @Html.DisplayFor(model => model.PhoneNumber)
-        </dd>
+        .profile-details {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #2c3e50; /* Dark background for the container */
 
-        <dt>
-            @Html.DisplayNameFor(model => model.HireDate)
-        </dt>
+            color: #ffffff; /* White text color for all text */
 
-        <dd>
-            @Html.DisplayFor(model => model.HireDate)
-        </dd>
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            transition: box-shadow 0.3s ease-in-out;
+        }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
+            .profile-details:hover {
+                box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+            }
 
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
+        h2 {
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 2em;
+        }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Salary)
-        </dt>
+        dl {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
 
-        <dd>
-            @Html.DisplayFor(model => model.Salary)
-        </dd>
+        dt {
+            font-weight: bold;
+            margin-top: 10px;
+        }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Username)
-        </dt>
+        dd {
+            margin-left: 0;
+            margin-bottom: 10px;
+        }
 
-        <dd>
-            @Html.DisplayFor(model => model.Username)
-        </dd>
+        .action-links {
+            text-align: center;
+            margin-top: 30px;
+        }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
+            .action-links a {
+                color: #18bc9c; /* Contrasting color for links */
 
-        <dd>
-            @Html.DisplayFor(model => model.Password)
-        </dd>
+                text-decoration: none;
+                padding: 10px 20px;
+                border: 1px solid #18bc9c; /* Border color to match the link color */
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Grade.GradeName)
-        </dt>
+                border-radius: 5px;
+                transition: all 0.3s ease-in-out;
+            }
 
-        <dd>
-            @Html.DisplayFor(model => model.Grade.GradeName)
-        </dd>
+                .action-links a:hover {
+                    background-color: #18bc9c;
+                    color: #2c3e50; /* Dark color for text on hover */
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Role.RoleName)
-        </dt>
+                    text-decoration: none;
+                    transform: translateY(-2px);
+                }
+    </style>
 
-        <dd>
-            @Html.DisplayFor(model => model.Role.RoleName)
-        </dd>
+</head>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.User2.FullName)
-        </dt>
+<body>
 
-        <dd>
-            @Html.DisplayFor(model => model.User2.FullName)
-        </dd>
+    <div class="profile-details">
 
-    </dl>
-</div>
-<p>
-    <a href="@Url.Action("CommonDasboardAfterLogin", "Users")">Back</a>
-</p>
+        <h2>User Profile</h2>
+
+        <div>
+
+            <dl>
+
+                <dt>Full Name:</dt>
+
+                <dd>@Html.DisplayFor(model => model.FullName)</dd>
+
+                <dt>Email:</dt>
+
+                <dd>@Html.DisplayFor(model => model.EmailID)</dd>
+
+                <dt>Address:</dt>
+
+                <dd>@Html.DisplayFor(model => model.Address)</dd>
+
+                <dt>Phone Number:</dt>
+
+                <dd>@Html.DisplayFor(model => model.PhoneNumber)</dd>
+
+                <dt>Hire Date:</dt>
+
+                <dd>@Html.DisplayFor(model => model.HireDate)</dd>
+
+                <dt>Status:</dt>
+
+                <dd>@Html.DisplayFor(model => model.Status)</dd>
+
+                <dt>Salary:</dt>
+
+                <dd>@Html.DisplayFor(model => model.Salary)</dd>
+
+                <dt>Username:</dt>
+
+                <dd>@Html.DisplayFor(model => model.Username)</dd>
+
+                <dt>Password:</dt>
+
+                <dd>@Html.DisplayFor(model => model.Password)</dd>
+
+                <dt>Grade:</dt>
+
+                <dd>@Html.DisplayFor(model => model.Grade.GradeName)</dd>
+
+                <dt>Role:</dt>
+
+                <dd>@Html.DisplayFor(model => model.Role.RoleName)</dd>
+
+            </dl>
+
+        </div>
+
+        <div class="text-center">
+            <a href="@Url.Action("CommonDasboardAfterLogin", "Users")" class="btn btn-primary">Go Back</a>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
