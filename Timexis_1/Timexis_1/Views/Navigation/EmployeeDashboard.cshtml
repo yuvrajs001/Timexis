@@ -2,6 +2,120 @@
 @{
     ViewBag.Title = "EmployeeDashboard";
 }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Dashboard</title>
+    <!-- Include Font Awesome library -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        .dashboard-body {
+            background-image: url('../../Image/background_Index 1.jpg');
+            font-family: Arial, sans-serif;
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+        }
 
-<h2>EmployeeDashboard</h2>
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center; /* Center the content */
+        }
+
+        .dashboard-header {
+            margin-bottom: 40px;
+        }
+
+        .dashboard-options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .dashboard-option {
+            width: calc(20% - 20px);
+            height: 150px;
+            margin: 10px;
+            padding: 100px;
+            text-align: center;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+            .dashboard-option:hover {
+                background-color: #0056b3;
+                transform: translateY(-5px);
+            }
+
+            .dashboard-option a {
+                color: #fff;
+                text-decoration: none;
+            }
+
+            .dashboard-option h3 {
+                margin-top: 0;
+            }
+
+            .dashboard-option .icon {
+                font-size: 36px;
+                margin-bottom: 10px;
+            }
+    </style>
+</head>
+<body class="dashboard-body">
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h1>Welcome to Your Dashboard</h1>
+        </div>
+        <div class="dashboard-options">
+            <div class="dashboard-option">
+                <div class="icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <a href="@Url.Action("Details", "Users",new { id=ViewBag.UserID})">Profile</a>
+            </div>
+            <div class="dashboard-option">
+                <div class="icon">
+                    <i class="fas fa-tasks"></i>
+                </div>
+                <a href="@Url.Action("Details", "EmployeeProjectAssignments",new{ id=ViewBag.UserID})">Projects</a>
+            </div>
+            <div class="dashboard-option">
+                <div class="icon">
+                    <i class="far fa-calendar-alt"></i>
+                </div>
+                <a href="@Url.Action("Create", "Attendances",new{ id=ViewBag.UserID})">Attendance</a>
+            </div>
+            <div class="dashboard-option">
+                <div class="icon">
+                    <i class="far fa-calendar-check"></i>
+                </div>
+                <a href="@Url.Action("LeaveRequest", "LeaveRequests")">Apply for Leave</a>
+            </div>
+            <div class="dashboard-option">
+                <div class="icon">
+                    <i class="fas fa-chart-pie"></i>
+                </div>
+                <a href="@Url.Action("BalanceSummary", "LeaveRequests")"> leave Status</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
 

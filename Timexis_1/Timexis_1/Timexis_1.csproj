@@ -129,6 +129,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AttendancesController.cs" />
+    <Compile Include="Controllers\EmployeeProjectAssignmentsController.cs" />
+    <Compile Include="Controllers\LeaveRequestsController.cs" />
     <Compile Include="Controllers\NavigationController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -198,6 +201,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Image\background-realistic-abstract-technology-particle_23-2148431735 2.jpg" />
     <Content Include="Image\background_Index 1.jpg" />
     <Content Include="Models\TimesheetModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -258,6 +262,23 @@
     <Content Include="Views\Navigation\AdminDashboard.cshtml" />
     <Content Include="Views\Navigation\ManagerDashboard.cshtml" />
     <Content Include="Views\Users\CommonDasboardAfterLogin.cshtml" />
+    <Content Include="Views\Projects\AssignProject.cshtml" />
+    <Content Include="Views\Projects\EmployeesAssignedToProject.cshtml" />
+    <Content Include="Views\Projects\MyProjects.cshtml" />
+    <Content Include="Views\Attendances\Delete.cshtml" />
+    <Content Include="Views\Attendances\Details.cshtml" />
+    <Content Include="Views\Attendances\Edit.cshtml" />
+    <Content Include="Views\Attendances\Index.cshtml" />
+    <Content Include="Views\LeaveRequests\LeaveRequest.cshtml" />
+    <Content Include="Views\EmployeeProjectAssignments\Create.cshtml" />
+    <Content Include="Views\EmployeeProjectAssignments\Delete.cshtml" />
+    <Content Include="Views\EmployeeProjectAssignments\Details.cshtml" />
+    <Content Include="Views\EmployeeProjectAssignments\Edit.cshtml" />
+    <Content Include="Views\EmployeeProjectAssignments\Index.cshtml" />
+    <Content Include="Views\Attendances\ApproveAttendence.cshtml" />
+    <Content Include="Views\Attendances\Create.cshtml" />
+    <Content Include="Views\LeaveRequests\PendingRequests.cshtml" />
+    <Content Include="Views\LeaveRequests\BalanceSummary.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

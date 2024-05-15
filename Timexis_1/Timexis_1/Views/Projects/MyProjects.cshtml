@@ -1,0 +1,34 @@
+﻿@model List<Timexis_1.Models.Project>
+
+@{
+    ViewBag.Title = "My Projects";
+}
+
+<h2>My Projects</h2>
+
+@if (Model.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Project Name</th>
+                <th>Description</th>
+                <!-- Add more columns as needed -->
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var project in Model)
+            {
+                <tr>
+                    <td>@project.ProjectName</td>
+                    <td>@project.Description</td>
+                    <!-- Add more columns as needed -->
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No projects assigned to you.</p>
+}

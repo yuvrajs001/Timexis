@@ -9,9 +9,10 @@ namespace Timexis_1.Controllers
     public class NavigationController : Controller
     {
         // GET: Navigation
-        [Authorize(Roles = "Employee, Admin")]
+        [Authorize(Roles = "Employee")]
         public ActionResult EmployeeDashboard()
         {
+            ViewBag.UserID= Session["UserID"];
             return View();
         }
         [Authorize(Roles = "Admin")]

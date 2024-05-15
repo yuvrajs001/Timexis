@@ -6,6 +6,19 @@
     <title>@ViewBag.Title - Timexis Attendance Management</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
+    <!-- Custom CSS -->
+    <style>
+        /* Add your custom styles here */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-image: url('/Image/background_Index 1.jpg'); /* Replace 'path_to_your_background_image.jpg' with the actual path to your background image */
+            background-size: cover;
+            background-position: center;
+            padding-top: 70px; /* Adjusted to account for navbar height */
+            margin: 0;
+        }
+    </style>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -22,21 +35,15 @@
                 <ul class="nav navbar-nav">
                     @if (User.Identity.IsAuthenticated)
                     {
-
                         <li class="nav-item">
                             <a href="@Url.Action("AdminDashboard", "Navigation")">Admin</a>
-
                         </li>
-
                         <li class="nav-item">
                             <a href="@Url.Action("ManagerDashboard", "Navigation")">Manager</a>
-
                         </li>
                         <li class="nav-item">
                             <a href="@Url.Action("EmployeeDashboard", "Navigation")">Employee</a>
-
                         </li>
-
                     }
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -46,10 +53,7 @@
                             <a class="nav-link">@User.Identity.Name</a>
                         </li>
                         <li class="nav-item">
-                        <li class="nav-item">
                             <a href="@Url.Action("Logout", "Account")" class="btn btn-danger">Logout</a>
-
-                        </li>
                         </li>
                     }
                 </ul>
@@ -58,10 +62,6 @@
     </div>
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Timexis Attendance Management</p>
-        </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")

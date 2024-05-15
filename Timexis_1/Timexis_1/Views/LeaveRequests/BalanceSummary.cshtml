@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Timexis_1.Models.LeaveRequest>
+
+@{
+    ViewBag.Title = "Balance Summary";
+}
+
+
+
+@if (ViewBag.CasualLeaveBalance != null)
+{
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Casual Leave Balance:</h4>
+            <p>@ViewBag.CasualLeaveBalance</p>
+        </div>
+    </div>
+}
+
+@if (Model != null && Model.Any())
+{
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <h4>Leave Requests:</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>From Date</th>
+                        <th>To Date</th>
+                        <th>Reason</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var request in Model)
+                    {
+                        <tr>
+                            <td>@request.FromDate.ToShortDateString()</td>
+                            <td>@request.ToDate.ToShortDateString()</td>
+                            <td>@request.Reason</td>
+                            <td>@request.Status</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else
+{
+    
+}
+
+@using (Html.BeginForm("BalanceSummary", "LeaveRequests", FormMethod.Get))
+{
+    <div class="form-group">
+        @Html.Label("User ID:")
+        @Html.TextBox("userId", null, new { @class = "form-control" })
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+}

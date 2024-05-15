@@ -133,5 +133,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="CreateLeaveRequest" FunctionName="AttendenceProjectModel.Store.CreateLeaveRequest" />
   </EntityContainerMapping>
 </Mapping>

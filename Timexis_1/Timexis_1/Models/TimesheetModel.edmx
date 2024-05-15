@@ -44,7 +44,7 @@
           <Key>
             <PropertyRef Name="LeaveBalanceID" />
           </Key>
-          <Property Name="LeaveBalanceID" Type="int" Nullable="false" />
+          <Property Name="LeaveBalanceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="LeaveID" Type="int" Nullable="false" />
           <Property Name="Balance" Type="int" Nullable="false" />
@@ -72,7 +72,7 @@
           <Key>
             <PropertyRef Name="LeaveRequestID" />
           </Key>
-          <Property Name="LeaveRequestID" Type="int" Nullable="false" />
+          <Property Name="LeaveRequestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="LeaveID" Type="int" Nullable="false" />
           <Property Name="FromDate" Type="date" Nullable="false" />
@@ -149,19 +149,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__LeaveBala__Leave__5441852A">
-          <End Role="Leave" Type="Self.Leave" Multiplicity="1" />
-          <End Role="LeaveBalance" Type="Self.LeaveBalance" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Leave">
-              <PropertyRef Name="LeaveID" />
-            </Principal>
-            <Dependent Role="LeaveBalance">
-              <PropertyRef Name="LeaveID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__LeaveBala__UserI__534D60F1">
+        <Association Name="FK__LeaveBala__UserI__09A971A2">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="LeaveBalance" Type="Self.LeaveBalance" Multiplicity="*" />
           <ReferentialConstraint>
@@ -209,7 +197,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__LeaveRequ__Leave__49C3F6B7">
+        <Association Name="FK__LeaveRequ__Leave__114A936A">
           <End Role="Leave" Type="Self.Leave" Multiplicity="1" />
           <End Role="LeaveRequest" Type="Self.LeaveRequest" Multiplicity="*" />
           <ReferentialConstraint>
@@ -221,7 +209,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__LeaveRequ__UserI__48CFD27E">
+        <Association Name="FK__LeaveRequ__UserI__10566F31">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="LeaveRequest" Type="Self.LeaveRequest" Multiplicity="*" />
           <ReferentialConstraint>
@@ -317,6 +305,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="CreateLeaveRequest" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+          <Parameter Name="FromDate" Type="date" Mode="In" />
+          <Parameter Name="ToDate" Type="date" Mode="In" />
+          <Parameter Name="Reason" Type="text" Mode="In" />
+        </Function>
         <EntityContainer Name="AttendenceProjectModelStoreContainer">
           <EntitySet Name="Attendance" EntityType="Self.Attendance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeProjectAssignment" EntityType="Self.EmployeeProjectAssignment" Schema="dbo" store:Type="Tables" />
@@ -338,11 +332,7 @@
             <End Role="User" EntitySet="User" />
             <End Role="Attendance" EntitySet="Attendance" />
           </AssociationSet>
-          <AssociationSet Name="FK__LeaveBala__Leave__5441852A" Association="Self.FK__LeaveBala__Leave__5441852A">
-            <End Role="Leave" EntitySet="Leave" />
-            <End Role="LeaveBalance" EntitySet="LeaveBalance" />
-          </AssociationSet>
-          <AssociationSet Name="FK__LeaveBala__UserI__534D60F1" Association="Self.FK__LeaveBala__UserI__534D60F1">
+          <AssociationSet Name="FK__LeaveBala__UserI__09A971A2" Association="Self.FK__LeaveBala__UserI__09A971A2">
             <End Role="User" EntitySet="User" />
             <End Role="LeaveBalance" EntitySet="LeaveBalance" />
           </AssociationSet>
@@ -358,11 +348,11 @@
             <End Role="Leave" EntitySet="Leave" />
             <End Role="LeaveInfo" EntitySet="LeaveInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK__LeaveRequ__Leave__49C3F6B7" Association="Self.FK__LeaveRequ__Leave__49C3F6B7">
+          <AssociationSet Name="FK__LeaveRequ__Leave__114A936A" Association="Self.FK__LeaveRequ__Leave__114A936A">
             <End Role="Leave" EntitySet="Leave" />
             <End Role="LeaveRequest" EntitySet="LeaveRequest" />
           </AssociationSet>
-          <AssociationSet Name="FK__LeaveRequ__UserI__48CFD27E" Association="Self.FK__LeaveRequ__UserI__48CFD27E">
+          <AssociationSet Name="FK__LeaveRequ__UserI__10566F31" Association="Self.FK__LeaveRequ__UserI__10566F31">
             <End Role="User" EntitySet="User" />
             <End Role="LeaveRequest" EntitySet="LeaveRequest" />
           </AssociationSet>
@@ -820,6 +810,12 @@
             <End Role="User" EntitySet="Users" />
             <End Role="UserRoleMapping" EntitySet="UserRoleMappings" />
           </AssociationSet>
+          <FunctionImport Name="CreateLeaveRequest">
+            <Parameter Name="UserID" Mode="In" Type="Int32" />
+            <Parameter Name="FromDate" Mode="In" Type="DateTime" />
+            <Parameter Name="ToDate" Mode="In" Type="DateTime" />
+            <Parameter Name="Reason" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -959,6 +955,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="CreateLeaveRequest" FunctionName="AttendenceProjectModel.Store.CreateLeaveRequest" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="86398a279691457f9c4979b33c7cc567" Name="Diagram1" ZoomLevel="85">
+      <Diagram DiagramId="86398a279691457f9c4979b33c7cc567" Name="Diagram1" ZoomLevel="54">
         <EntityTypeShape EntityType="AttendenceProjectModel.Attendance" Width="1.5" PointX="5.25" PointY="9.375" IsExpanded="true" />
         <EntityTypeShape EntityType="AttendenceProjectModel.EmployeeProjectAssignment" Width="1.5" PointX="8.25" PointY="9.625" IsExpanded="true" />
         <EntityTypeShape EntityType="AttendenceProjectModel.Grade" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />

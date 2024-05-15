@@ -1,0 +1,41 @@
+﻿@model Timexis_1.Models.EmployeeProjectAssignment
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>EmployeeProjectAssignment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AssignmentDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AssignmentDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Project.ProjectName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Project.ProjectName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.FullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.FullName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <a href="@Url.Action("CommonDasboardAfterLogin", "Users")">Back</a>
+</p>

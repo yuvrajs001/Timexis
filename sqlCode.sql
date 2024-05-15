@@ -54,7 +54,7 @@ CREATE TABLE [User] (
     FOREIGN KEY (ManagerID) REFERENCES [User](UserID),
     FOREIGN KEY (GradeID) REFERENCES Grade(GradeID)
 );
-INSERT INTO user 
+INSERT INTO [user] 
 VALUES 
 (1034294, 2, 3, 'Sanjeev Ranjan', 'sanjeev200@gmail.com', 'Lucknow', '8877711223', '2024-01-01', NULL, 1, 30000.00, 'SanjeevR', 'sanjeev'),
 (1034295, 1, 1, 'Yuvraj Singh', 'ys665252@gmail.com', 'Lucknow', '08630282265', '2024-01-01', NULL, 1, 50000.00, 'yuvraj@123', 'Yuvraj1'),
@@ -64,11 +64,11 @@ VALUES
 select*from [User]
 select*from role
 
-
+delete from [user] 
 
 -- Create LeaveRequest table with FromDate, ToDate, and TotalDays columns
 CREATE TABLE LeaveRequest (
-    LeaveRequestID INT PRIMARY KEY,
+    LeaveRequestID INT PRIMARY KEY identity(1000,1),
     UserID INT NOT NULL,
     LeaveID INT NOT NULL,
     FromDate DATE NOT NULL,
@@ -77,11 +77,10 @@ CREATE TABLE LeaveRequest (
     AppliedDate DATE DEFAULT GETDATE(),
     Status VARCHAR(20) DEFAULT 'Pending' NOT NULL,
     Reason TEXT,
-    FOREIGN KEY (UserID) REFERENCES [User](UserID),
-    FOREIGN KEY (LeaveID) REFERENCES Leave(LeaveID),
     CHECK (Status IN ('Pending', 'Approved', 'Rejected'))
 );
-
+select*from LeaveRequest
+drop table LeaveRequest
 -- Create Attendance table with IsPending column
 CREATE TABLE Attendance (
     AttendanceID INT PRIMARY KEY,
@@ -96,14 +95,16 @@ CREATE TABLE Attendance (
 drop table Attendance
 -- Create LeaveBalance table
 CREATE TABLE LeaveBalance (
-    LeaveBalanceID INT PRIMARY KEY,
+    LeaveBalanceID INT PRIMARY KEY identity(1000,1),
     UserID INT NOT NULL,
     LeaveID INT NOT NULL,
     Balance INT NOT NULL CHECK (Balance >= 0),
     FOREIGN KEY (UserID) REFERENCES [User](UserID),
-    FOREIGN KEY (LeaveID) REFERENCES Leave(LeaveID)
+    
 );
 
+select* from LeaveBalance
+drop table LeaveBalance
 -- Create LeaveHistory table
 CREATE TABLE LeaveHistory (
     LeaveHistoryID INT PRIMARY KEY,
@@ -144,12 +145,108 @@ CREATE TABLE UserRoleMapping (
 );
 
 select*from UserRoleMapping
-INSERT INTO UserRoleMapping (ID, UserID, RoleID)
+INSERT INTO UserRoleMapping 
 VALUES
-(1, 1034295, 1),
-(2, 1034294, 2),
-(3, 1034330, 3);
+( 1034295, 1),
+( 1034294, 2),
+(1034330, 3);
+
+
+delete from UserRoleMapping
+CREATE or alter TRIGGER FillLeaveBalanceOnUserInsert
+ON [User]
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO LeaveBalance (UserID, LeaveID, Balance)
+    SELECT inserted.UserID, 1, Grade.TotalCasualLeave
+    FROM inserted
+    JOIN Grade ON inserted.GradeID = Grade.GradeID;
+END;
+
+
+
+delete from  LeaveRequest
+
+CREATE OR ALTER TRIGGER UpdateLeaveBalanceOnApproval
+ON LeaveRequest
+AFTER UPDATE
+AS
+BEGIN
+    IF EXISTS (SELECT 1 FROM inserted i INNER JOIN deleted d ON i.LeaveRequestID = d.LeaveRequestID
+               WHERE i.Status = 'Approved' AND d.Status = 'Pending')
+    BEGIN
+        DECLARE @TotalDays INT, @UserID INT, @LeaveID INT;
+
+        SELECT @TotalDays = i.TotalDays, @UserID = i.UserID, @LeaveID = i.LeaveID
+        FROM inserted i
+        INNER JOIN deleted d ON i.LeaveRequestID = d.LeaveRequestID
+        WHERE i.Status = 'Approved' AND d.Status = 'Pending';
+
+        IF @TotalDays IS NOT NULL
+        BEGIN
+            UPDATE LeaveBalance
+            SET Balance = Balance - @TotalDays
+            WHERE UserID = @UserID AND LeaveID = @LeaveID;
+        END;
+    END;
+END;
 
 
 
 
+CREATE or alter PROCEDURE CreateLeaveRequest
+    @UserID INT,
+    @FromDate DATE,
+    @ToDate DATE,
+    @Reason TEXT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @TotalDays INT, @LeaveID INT, @Balance INT;
+
+    -- Calculate TotalDays from FromDate and ToDate
+    SET @TotalDays = DATEDIFF(day, @FromDate, @ToDate) + 1;
+
+    -- Retrieve LeaveID and Balance from LeaveBalance table
+    SELECT @LeaveID = LeaveID, @Balance = Balance
+    FROM LeaveBalance
+    WHERE UserID = @UserID;
+
+    -- Check if LeaveID and Balance are retrieved successfully
+    IF @LeaveID IS NULL
+    BEGIN
+        RAISERROR ('User does not have a leave balance record.', 16, 1);
+        RETURN;
+    END; -- Remove the semicolon here
+
+    -- Check if there are enough balance days
+    IF @Balance < @TotalDays
+    BEGIN
+        RAISERROR ('Insufficient leave balance.', 16, 1);
+        RETURN;
+    END;
+
+    -- Insert LeaveRequest
+    INSERT INTO LeaveRequest (UserID, LeaveID, FromDate, ToDate, TotalDays, Reason)
+    VALUES (@UserID, @LeaveID, @FromDate, @ToDate, @TotalDays, @Reason);
+
+    PRINT 'Leave request has been submitted successfully.';
+END;
+
+DECLARE @UserID INT = 1034330; -- User ID
+DECLARE @FromDate DATE = '2024-05-15'; -- From Date
+DECLARE @ToDate DATE = '2024-05-16'; -- To Date
+DECLARE @Reason NVARCHAR(MAX) = 'Vacation'; -- Reason
+
+EXEC CreateLeaveRequest @UserID, @FromDate, @ToDate, @Reason;
+
+select*from LeaveRequest
+
+drop table LeaveRequest
+
+select * from Attendance
+insert into Attendance values(1,1034330,12345,'2024-05-13',9,'Pending')

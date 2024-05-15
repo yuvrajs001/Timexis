@@ -29,7 +29,8 @@ namespace Timexis_1.Controllers
         }
 
         // GET: Users/Details/5
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles ="Admin,Employee,Manager")]
+        
         public ActionResult Details(int? id)
         {
             if (id == null)

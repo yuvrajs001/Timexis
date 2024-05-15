@@ -1,0 +1,18 @@
+﻿
+@model Timexis_1.Models.EmployeeProjectAssignment
+@{ ViewBag.Title = "AssignProject"; }
+
+<h2>AssignProject</h2>
+
+@using (Html.BeginForm("AssignProject", "Projects", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.Label("Employee:")
+        @Html.DropDownList("employeeList", ViewBag.EmployeeList as SelectList, "Select Employee", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.Label("Project:")
+        @Html.DropDownList("projectList", ViewBag.ProjectList as SelectList, "Select Project", new { @class = "form-control" })
+    </div>
+    <button type="submit" class="btn btn-primary">Assign Project</button>
+}

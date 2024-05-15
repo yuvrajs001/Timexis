@@ -115,6 +115,129 @@ namespace Timexis_1.Controllers
             return RedirectToAction("Index");
         }
 
+
+
+        public ActionResult AssignProject()
+        {
+            ViewBag.EmployeeList = new SelectList(db.Users, "FullName", "FullName");
+            ViewBag.ProjectList = new SelectList(db.Projects, "ProjectName", "ProjectName");
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AssignProject(string employeeList, string projectList)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(employeeList) && !string.IsNullOrEmpty(projectList))
+                {
+                    // Find employee and project by name
+                    var employee = db.Users.FirstOrDefault(e => e.FullName == employeeList);
+                    var project = db.Projects.FirstOrDefault(p => p.ProjectName == projectList);
+
+                    if (employee != null && project != null)
+                    {
+                        // Generate a random assignment ID between 1000 and 2000
+                        Random rnd = new Random();
+                        int assignmentId = rnd.Next(1000, 2001);
+
+                        // Create a new assignment record
+                        var assignment = new EmployeeProjectAssignment
+                        {
+                            AssignmentID = assignmentId,
+                           UserID = employee.UserID,
+                            ProjectID = project.ProjectID,
+                            AssignmentDate = DateTime.Now
+                        };
+
+
+                        db.EmployeeProjectAssignments.Add(assignment);
+                        db.SaveChanges();
+
+                        // Return success response
+                        return Content("Project assigned to employee successfully. Assignment ID: " + assignmentId);
+                    }
+                    else
+                    {
+                        // Return error response if either employee or project is not found
+                        if (employee == null)
+                        {
+                            return Content("Employee not found.");
+                        }
+                        else
+                        {
+                            return Content("Project not found.");
+                        }
+                    }
+                }
+                else
+                {
+                    // Return error response if either employeeList or projectList is empty
+                    return Content("Please select both an employee and a project.");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Return error response if an exception occurs
+                return Content("An error occurred while assigning project to employee.");
+            }
+        }
+
+
+        //[Authorize(Roles = "Admin")]
+        public ActionResult EmployeesAssignedToProject(int? projectId)
+        {
+            if (projectId == null)
+            {
+                return View(); // Show the form if no project ID is provided
+            }
+
+            // Find the project by its ID
+            var project = db.Projects.Find(projectId);
+
+            if (project == null)
+            {
+                return HttpNotFound(); // Project not found
+            }
+
+            // Retrieve the list of employees assigned to the project
+            var employees = project.EmployeeProjectAssignments.Select(a => a.User).ToList();
+
+            // Pass the list of employees to the view
+            return View(employees);
+        }
+
+        [Authorize(Roles ="Employee")]
+        public ActionResult MyProjects()
+        {
+            // Retrieve the user ID from TempData
+            int? userId = TempData["UserID"] as int?;
+
+            // Check if the user ID is null or not
+            if (userId != null)
+            {
+                // Convert the user ID to int
+                int employeeId = (int)userId;
+
+                using (var db = new AttendenceProjectEntities1())
+                {
+                    // Query the database to get projects assigned to the employee
+                    var projects = db.EmployeeProjectAssignments
+                                        .Where(e => e.UserID == employeeId)
+                                        .Select(e => e.Project)
+                                        .ToList();
+
+                    return View(projects);
+                }
+            }
+            else
+            {
+                // Handle the case where the user ID is not found in TempData
+                // You can redirect to a login page or display an error message
+                return RedirectToAction("Login", "Account");
+            }
+        }
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

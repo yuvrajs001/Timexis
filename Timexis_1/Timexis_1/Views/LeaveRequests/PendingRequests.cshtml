@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Timexis_1.Models.LeaveRequest>
+
+    @{
+        ViewBag.Title = "Pending Leave Requests";
+    }
+
+    <h2>Pending Leave Requests</h2>
+
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["Message"]
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>UserID</th>
+                <th>FromDate</th>
+                <th>ToDate</th>
+                <th>TotalDays</th>
+                <th>Reason</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var leaveRequest in Model)
+            {
+                <tr>
+                    <td>@leaveRequest.UserID</td>
+                    <td>@leaveRequest.FromDate</td>
+                    <td>@leaveRequest.ToDate</td>
+                    <td>@leaveRequest.TotalDays</td>
+                    <td>@leaveRequest.Reason</td>
+                    <td>
+                        <!-- Approve button -->
+                        <a href="@Url.Action("Approve", new { id = leaveRequest.LeaveRequestID })" class="btn btn-success" title="Approve">
+                            <i class="fa fa-check"></i>
+                        </a>
+                        <!-- Reject button -->
+                        <a href="@Url.Action("Reject", new { id = leaveRequest.LeaveRequestID })" class="btn btn-danger" title="Reject">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
