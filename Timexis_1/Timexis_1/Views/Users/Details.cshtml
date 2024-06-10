@@ -1,166 +1,53 @@
-﻿@model Timexis_1.Models.User
-
-@{
-                ViewBag.Title = "Details";
-
+﻿@{
+    ViewBag.Title = "Details";
 }
 
 <!DOCTYPE html>
-
-<html lang="en">
-
+<html>
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <meta charset="utf-8" />
     <title>@ViewBag.Title</title>
-
     <style>
-
         body {
-            font-family: 'Poppins', sans-serif;
-            background-image: url('../../Image/background_Index 1.jpg');
-           
-            background-size: cover;
-            background-position: center;
-            padding-top: 70px;
-            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 20px;
         }
 
-        .profile-details {
-            max-width: 800px;
-            margin: 50px auto;
-            background-color: #2c3e50; /* Dark background for the container */
-
-            color: #ffffff; /* White text color for all text */
-
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            position: relative;
-            overflow: hidden;
-            transition: box-shadow 0.3s ease-in-out;
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-            .profile-details:hover {
-                box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-            }
-
-        h2 {
+        h1 {
+            font-size: 24px;
             margin-bottom: 20px;
-            text-align: center;
-            font-size: 2em;
         }
 
-        dl {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
+        p {
+            font-size: 18px;
+            line-height: 1.6;
         }
-
-        dt {
-            font-weight: bold;
-            margin-top: 10px;
-        }
-
-        dd {
-            margin-left: 0;
-            margin-bottom: 10px;
-        }
-
-        .action-links {
-            text-align: center;
-            margin-top: 30px;
-        }
-
-            .action-links a {
-                color: #18bc9c; /* Contrasting color for links */
-
-                text-decoration: none;
-                padding: 10px 20px;
-                border: 1px solid #18bc9c; /* Border color to match the link color */
-
-                border-radius: 5px;
-                transition: all 0.3s ease-in-out;
-            }
-
-                .action-links a:hover {
-                    background-color: #18bc9c;
-                    color: #2c3e50; /* Dark color for text on hover */
-
-                    text-decoration: none;
-                    transform: translateY(-2px);
-                }
     </style>
-
 </head>
-
 <body>
-
-    <div class="profile-details">
-
-        <h2>User Profile</h2>
-
-        <div>
-
-            <dl>
-
-                <dt>Full Name:</dt>
-
-                <dd>@Html.DisplayFor(model => model.FullName)</dd>
-
-                <dt>Email:</dt>
-
-                <dd>@Html.DisplayFor(model => model.EmailID)</dd>
-
-                <dt>Address:</dt>
-
-                <dd>@Html.DisplayFor(model => model.Address)</dd>
-
-                <dt>Phone Number:</dt>
-
-                <dd>@Html.DisplayFor(model => model.PhoneNumber)</dd>
-
-                <dt>Hire Date:</dt>
-
-                <dd>@Html.DisplayFor(model => model.HireDate)</dd>
-
-                <dt>Status:</dt>
-
-                <dd>@Html.DisplayFor(model => model.Status)</dd>
-
-                <dt>Salary:</dt>
-
-                <dd>@Html.DisplayFor(model => model.Salary)</dd>
-
-                <dt>Username:</dt>
-
-                <dd>@Html.DisplayFor(model => model.Username)</dd>
-
-                <dt>Password:</dt>
-
-                <dd>@Html.DisplayFor(model => model.Password)</dd>
-
-                <dt>Grade:</dt>
-
-                <dd>@Html.DisplayFor(model => model.Grade.GradeName)</dd>
-
-                <dt>Role:</dt>
-
-                <dd>@Html.DisplayFor(model => model.Role.RoleName)</dd>
-
-            </dl>
-
-        </div>
-
-        <div class="text-center">
-            <a href="@Url.Action("CommonDasboardAfterLogin", "Users")" class="btn btn-primary">Go Back</a>
-        </div>
-
+    <div class="container">
+        <h1>Details for @ViewBag.UserFullName</h1>
+        @if (ViewBag.Message != null)
+        {
+            <p>@ViewBag.Message</p>
+        }
+        else
+        {
+            <p>Project Name: @ViewBag.ProjectName</p>
+            <p>Assignment Date: @ViewBag.AssignmentDate</p>
+        }
     </div>
-
 </body>
-
 </html>

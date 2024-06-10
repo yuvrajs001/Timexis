@@ -1,64 +1,28 @@
-﻿
-@model Timexis_1.Models.EmployeeProjectAssignment
+﻿@model Timexis_1.Models.EmployeeProjectAssignment
 
-@{ ViewBag.Title = "Details"; }
-
+@{
+    ViewBag.Title = "Details";
+}
 
 <div class="profile-details">
-
-    <h4>EmployeeProjectAssignment</h4>
-
-    <hr />
-
-    <dl class="dl-horizontal">
-
-        <dt>
-
-            @Html.DisplayNameFor(model => model.AssignmentDate)
-
-        </dt>
-
-        <dd>
-
-            @Html.DisplayFor(model => model.AssignmentDate)
-
-        </dd>
-
-        <dt>
-
-            @Html.DisplayNameFor(model => model.Project.ProjectName)
-
-        </dt>
-
-        <dd>
-
-            @Html.DisplayFor(model => model.Project.ProjectName)
-
-        </dd>
-
-        <dt>
-
-            @Html.DisplayNameFor(model => model.User.FullName)
-
-        </dt>
-
-        <dd>
-
-            @Html.DisplayFor(model => model.User.FullName)
-
-        </dd>
-
-    </dl>
+    <h2> @ViewBag.UserFullName</h2>
+    @if (ViewBag.Message != null)
+    {
+        <p>@ViewBag.Message</p>
+    }
+    else
+    {
+        <p>Project Name: @ViewBag.ProjectName</p>
+        <p>Assignment Date: @ViewBag.AssignmentDate</p>
+    }
 
 </div>
-
 
 <div class="text-center">
     <a href="@Url.Action("CommonDasboardAfterLogin", "Users")" class="btn btn-primary">Go Back</a>
 </div>
 
 <style>
-
     body {
         font-family: 'Poppins', sans-serif;
         background-image: url('../../Image/background_Index 1.jpg');
@@ -71,10 +35,8 @@
     .profile-details {
         max-width: 800px;
         margin: 50px auto;
-        background-color: #2c3e50; /* Dark background for the container */
-
-        color: #ffffff; /* White text color for all text */
-
+        background-color: #2c3e50;
+        color: #ffffff;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         padding: 30px;
@@ -86,12 +48,6 @@
         .profile-details:hover {
             box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
         }
-
-    h2 {
-        margin-bottom: 20px;
-        text-align: center;
-        font-size: 2em;
-    }
 
     dl {
         display: grid;
@@ -109,26 +65,23 @@
         margin-bottom: 10px;
     }
 
-    .action-links {
+    .text-center {
         text-align: center;
         margin-top: 30px;
     }
 
-        .action-links a {
-            color: #18bc9c; /* Contrasting color for links */
-
+        .text-center a {
+            color: #18bc9c;
             text-decoration: none;
             padding: 10px 20px;
-            border: 1px solid #18bc9c; /* Border color to match the link color */
-
+            border: 1px solid #18bc9c;
             border-radius: 5px;
             transition: all 0.3s ease-in-out;
         }
 
-            .action-links a:hover {
+            .text-center a:hover {
                 background-color: #18bc9c;
-                color: #2c3e50; /* Dark color for text on hover */
-
+                color: #2c3e50;
                 text-decoration: none;
                 transform: translateY(-2px);
             }

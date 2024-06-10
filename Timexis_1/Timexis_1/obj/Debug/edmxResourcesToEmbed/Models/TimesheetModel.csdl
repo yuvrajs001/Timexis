@@ -127,7 +127,6 @@
     <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="HireDate" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="ManagerID" Type="Int32" />
-    <Property Name="Status" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Salary" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
     <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
@@ -426,6 +425,9 @@
       <Parameter Name="FromDate" Mode="In" Type="DateTime" />
       <Parameter Name="ToDate" Mode="In" Type="DateTime" />
       <Parameter Name="Reason" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="DeleteUserRecords">
+      <Parameter Name="UserID" Mode="In" Type="Int32" />
     </FunctionImport>
   </EntityContainer>
 </Schema>

@@ -116,6 +116,9 @@
         <table class="table">
 
             <tr>
+                <th>
+                    @Html.DisplayNameFor(model=>model.ProjectID)
+                </th>
 
                 <th>
 
@@ -149,39 +152,38 @@
 
             {
 
-                <tr>
+        <tr>
 
-                    <td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProjectID)
+            </td>
+            <td>
 
-                        @Html.DisplayFor(modelItem => item.ProjectName)
+                @Html.DisplayFor(modelItem => item.ProjectName)
 
-                    </td>
+            </td>
 
-                    <td>
+            <td>
 
-                        @Html.DisplayFor(modelItem => item.Description)
+                @Html.DisplayFor(modelItem => item.Description)
 
-                    </td>
+            </td>
 
-                    <td>
+            <td>
+            @item.ProjectStartDate.ToString("MM/dd/yyyy")
+            </td>
+            <td>
+            @item.ProjectEndDate.ToString("MM/dd/yyyy")
+            </td>
 
-                        @Html.DisplayFor(modelItem => item.ProjectStartDate)
 
-                    </td>
+            <td>
 
-                    <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ProjectID }, new { @class = "btn btn-edit" })
 
-                        @Html.DisplayFor(modelItem => item.ProjectEndDate)
+            </td>
 
-                    </td>
-
-                    <td>
-
-                        @Html.ActionLink("Edit", "Edit", new { id = item.ProjectID }, new { @class = "btn btn-edit" })
-
-                    </td>
-
-                </tr>
+        </tr>
                             }
 
         </table>

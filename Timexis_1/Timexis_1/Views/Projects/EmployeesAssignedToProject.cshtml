@@ -104,7 +104,7 @@
             @Html.TextBox("projectId", null, new { @class = "form-control" })
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
-        <a href="@Url.Action("CommonDasboardAfterLogin", "Users")" class="btn btn-primary">Go Back</a>
+        <a href="@Url.Action("Index", "Projects")" class="btn btn-primary">Go Back</a>
     }
 
     @if (Model != null && Model.Any())

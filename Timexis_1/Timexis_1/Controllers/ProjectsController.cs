@@ -120,10 +120,19 @@ namespace Timexis_1.Controllers
 
         public ActionResult AssignProject()
         {
-            ViewBag.EmployeeList = new SelectList(db.Users, "FullName", "FullName");
-            ViewBag.ProjectList = new SelectList(db.Projects, "ProjectName", "ProjectName");
+            // Only get employees for the dropdown
+            var employees = db.Users.Where(u => u.Role.RoleName == "Employee")
+                                    .Select(u => u.FullName)
+                                    .ToList();
+            ViewBag.EmployeeList = new SelectList(employees);
+
+            // Get project names for the dropdown
+            var projects = db.Projects.Select(p => p.ProjectName).ToList();
+            ViewBag.ProjectList = new SelectList(projects);
+
             return View();
         }
+
         [HttpPost]
         public ActionResult AssignProject(string employeeList, string projectList)
         {
@@ -131,8 +140,7 @@ namespace Timexis_1.Controllers
             {
                 if (!string.IsNullOrEmpty(employeeList) && !string.IsNullOrEmpty(projectList))
                 {
-                    // Find employee and project by name
-                    var employee = db.Users.FirstOrDefault(e => e.FullName == employeeList);
+                    var employee = db.Users.FirstOrDefault(u => u.FullName == employeeList && u.Role.RoleName == "Employee");
                     var project = db.Projects.FirstOrDefault(p => p.ProjectName == projectList);
 
                     if (employee != null && project != null)
@@ -145,43 +153,29 @@ namespace Timexis_1.Controllers
                         var assignment = new EmployeeProjectAssignment
                         {
                             AssignmentID = assignmentId,
-                           UserID = employee.UserID,
+                            UserID = employee.UserID,
                             ProjectID = project.ProjectID,
                             AssignmentDate = DateTime.Now
                         };
 
-
                         db.EmployeeProjectAssignments.Add(assignment);
                         db.SaveChanges();
 
-                        // Return success response
-                        return Content("Project assigned to employee successfully. Assignment ID: " + assignmentId);
+                        return RedirectToAction("Index");
                     }
                     else
                     {
-                        // Return error response if either employee or project is not found
-                        if (employee == null)
-                        {
-                            return Content("Employee not found.");
-                        }
-                        else
-                        {
-                            return Content("Project not found.");
-                        }
+                        return Content(employee == null ? "Employee not found." : "Project not found.");
                     }
                 }
-                else
-                {
-                    // Return error response if either employeeList or projectList is empty
-                    return Content("Please select both an employee and a project.");
-                }
+                return Content("Please select both an employee and a project.");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                // Return error response if an exception occurs
                 return Content("An error occurred while assigning project to employee.");
             }
         }
+
 
 
         [Authorize(Roles = "Admin,Manager")]

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -48,10 +49,14 @@ namespace Timexis_1.Controllers
         // GET: Users/Create
         public ActionResult Create()
         {
+            var managerUsers = db.Users.Where(u => u.Role.RoleName == "Manager")
+                                    .Select(u => new { u.UserID, u.FullName });
+
             ViewBag.RoleID = new SelectList(db.Roles, "RoleID", "RoleName");
             ViewBag.GradeID = new SelectList(db.Grades, "GradeID", "GradeName");
-            ViewBag.ManagerID = new SelectList(db.Users, "UserID", "FullName");
 
+            // Populate Manager dropdown with filtered users
+            ViewBag.ManagerID = new SelectList(managerUsers, "UserID", "FullName");
             return View();
         }
 
@@ -68,9 +73,13 @@ namespace Timexis_1.Controllers
 
             ViewBag.RoleID = new SelectList(db.Roles, "RoleID", "RoleName", user.RoleID);
             ViewBag.GradeID = new SelectList(db.Grades, "GradeID", "GradeName", user.GradeID);
-            ViewBag.ManagerID = new SelectList(db.Users, "UserID", "FullName", user.ManagerID);
+            var managerUsers = db.Users.Where(u => u.Role.RoleName == "Manager")
+                                  .Select(u => new { u.UserID, u.FullName });
 
-            return RedirectToAction("Approve");
+            // Populate Manager dropdown with filtered users
+            ViewBag.ManagerID = new SelectList(managerUsers, "UserID", "FullName", user.ManagerID);
+
+            return RedirectToAction("index");
         }
     
     // GET: Users/Edit/5
@@ -130,11 +139,38 @@ namespace Timexis_1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            User user = db.Users.Find(id);
-            db.Users.Remove(user);
+            User userToDelete = db.Users.Find(id);
+
+            // Check if the user exists
+            if (userToDelete == null)
+            {
+                return HttpNotFound();
+            }
+
+            // Retrieve all related records from other tables
+            var assignmentprojects = db.EmployeeProjectAssignments.Where(epa => epa.UserID == id);
+            var leaveRequests = db.LeaveRequests.Where(lr => lr.UserID == id);
+            var attendances = db.Attendances.Where(a => a.UserID == id);
+            var userRoleMappings = db.UserRoleMappings.Where(urm => urm.UserID == id);
+            var leaveBalances = db.LeaveBalances.Where(lb => lb.UserID == id);
+
+            // Remove all related records
+            db.EmployeeProjectAssignments.RemoveRange(assignmentprojects);
+
+            db.LeaveRequests.RemoveRange(leaveRequests);
+            db.Attendances.RemoveRange(attendances);
+            db.UserRoleMappings.RemoveRange(userRoleMappings);
+            db.LeaveBalances.RemoveRange(leaveBalances);
+
+            // Remove the user
+            db.Users.Remove(userToDelete);
+
+            // Save changes to the database
             db.SaveChanges();
+
             return RedirectToAction("Index");
         }
+
         [Authorize(Roles ="Admin")]
         public ActionResult Approve()
         {

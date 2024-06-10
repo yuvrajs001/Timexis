@@ -24,19 +24,41 @@ namespace Timexis_1.Controllers
         // GET: EmployeeProjectAssignments/Details/5
         public ActionResult Details(int? id)
         {
-            User em = db.Users.SingleOrDefault(a => a.UserID == id);
-            int ids = em.EmployeeProjectAssignments.SingleOrDefault().AssignmentID;
-            if (ids == null)
-            {
+            if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            EmployeeProjectAssignment employeeProjectAssignment = db.EmployeeProjectAssignments.Find(ids);
-            if (employeeProjectAssignment == null)
-            {
+
+            var user = db.Users.Include(u => u.EmployeeProjectAssignments.Select(a => a.Project))
+                               .SingleOrDefault(u => u.UserID == id);
+
+            if (user == null)
                 return HttpNotFound();
+
+            var assignment = user.EmployeeProjectAssignments?.FirstOrDefault();
+            if (assignment == null)
+            {
+                ViewBag.Message = "No project assigned.";
             }
-            return View(employeeProjectAssignment);
+            else
+            {
+                var projectAssignment = db.EmployeeProjectAssignments.Include(a => a.Project)
+                                                                      .SingleOrDefault(a => a.AssignmentID == assignment.AssignmentID);
+
+                if (projectAssignment != null)
+                {
+                    ViewBag.AssignmentDate = projectAssignment.AssignmentDate;
+                    ViewBag.ProjectName = projectAssignment.Project.ProjectName;
+                }
+                else
+                {
+                    ViewBag.Message = "Project not found.";
+                }
+            }
+
+            ViewBag.UserFullName = user.FullName;
+
+            return View();
         }
+
 
         // GET: EmployeeProjectAssignments/Create
         public ActionResult Create()

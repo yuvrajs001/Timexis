@@ -1,6 +1,7 @@
-﻿
-@model Timexis_1.Models.EmployeeProjectAssignment
-@{ ViewBag.Title = "AssignProject"; }
+﻿@model Timexis_1.Models.EmployeeProjectAssignment
+@{
+    ViewBag.Title = "AssignProject";
+}
 
 <!DOCTYPE html>
 <html>
@@ -19,29 +20,7 @@
             margin-top: 40px;
             height: 100vh;
         }
-.form-group {
-    margin-bottom: 20px;
-}
 
-label {
-    font-weight: bold;
-}
-
-        .form-control {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            margin-bottom: 10px;
-            margin: auto;
-        }
-        /* Style for validation messages */
-        .text-danger {
-            color: #dc3545; /* Red color for error messages */
-            font-size: 12px;
-        }
-        /* Style for form */
         .form-horizontal {
             width: 80%; /* Adjust width for better responsiveness */
             max-width: 600px; /* Set maximum width to prevent stretching on larger screens */
@@ -67,39 +46,84 @@ label {
             margin-left: 120px;
         }
 
-.btn-primary:hover {
-    background-color: #0056b3;
-}
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
 
-media screen and (max-width: 768px) {
-    .form-group {
-        width: 90%;
-        margin: 0 auto;
-    }
-}
+        media screen and (max-width: 768px) {
+            .form-horizontal {
+                width: 100%;
+                padding: 15px;
+            }
+
+            .btn-primary {
+                width: 100%;
+                margin-left: 0;
+            }
+
+            table {
+                width: 100%;
+            }
+
+            td {
+                display: block;
+                width: 100%;
+            }
+
+            h3 {
+                margin-left: 0;
+                text-align: center;
+            }
+        }
+
         h3 {
             margin-left: 30%;
             font-weight: bold;
         }
 
+        table {
+            width: 100%;
+        }
+
+        td {
+            padding: 10px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
     </style>
-    </head>
+</head>
 <body>
     <div class="form-horizontal">
-<h3>AssignProject</h3>
-
-@using (Html.BeginForm("AssignProject", "Projects", FormMethod.Post))
-{
-    <div class="form-group">
-        @Html.Label("Employee:")
-        @Html.DropDownList("employeeList", ViewBag.EmployeeList as SelectList, "Select Employee", new { @class = "form-control" })
+        <h3>Assign Project</h3>
+        @using (Html.BeginForm("AssignProject", "Projects", FormMethod.Post))
+        {
+    <table>
+        <tr>
+            <td>@Html.Label("Employee:")</td>
+            <td>@Html.DropDownList("employeeList", ViewBag.EmployeeList as SelectList, "Select Employee", new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td>@Html.Label("Project:")</td>
+            <td>@Html.DropDownList("projectList", ViewBag.ProjectList as SelectList, "Select Project", new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align:center;">
+                <button type="submit" class="btn btn-primary">Assign Project</button>
+            </td>
+        </tr>
+    </table>
+        }
     </div>
-    <div class="form-group">
-        @Html.Label("Project:")
-        @Html.DropDownList("projectList", ViewBag.ProjectList as SelectList, "Select Project", new { @class = "form-control" })
-    </div>
-    <button type="submit" class="btn btn-primary">Assign Project</button>
-}
-        </div>
-    </body>
+</body>
 </html>

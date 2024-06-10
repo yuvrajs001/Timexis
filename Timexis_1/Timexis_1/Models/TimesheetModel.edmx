@@ -112,7 +112,6 @@
           <Property Name="PhoneNumber" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="HireDate" Type="date" Nullable="false" />
           <Property Name="ManagerID" Type="int" />
-          <Property Name="Status" Type="varchar" MaxLength="2" Nullable="false" />
           <Property Name="Salary" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="100" Nullable="false" />
@@ -125,7 +124,7 @@
           <Property Name="UserID" Type="int" />
           <Property Name="RoleID" Type="int" />
         </EntityType>
-        <Association Name="FK__Attendanc__Proje__70DDC3D8">
+        <Association Name="FK__Attendanc__Proje__160F4887">
           <End Role="Project" Type="Self.Project" Multiplicity="1" />
           <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
           <ReferentialConstraint>
@@ -137,7 +136,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Attendanc__UserI__6FE99F9F">
+        <Association Name="FK__Attendanc__UserI__151B244E">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
           <ReferentialConstraint>
@@ -194,30 +193,6 @@
             </Principal>
             <Dependent Role="LeaveInfo">
               <PropertyRef Name="LeaveTypeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__LeaveRequ__Leave__114A936A">
-          <End Role="Leave" Type="Self.Leave" Multiplicity="1" />
-          <End Role="LeaveRequest" Type="Self.LeaveRequest" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Leave">
-              <PropertyRef Name="LeaveID" />
-            </Principal>
-            <Dependent Role="LeaveRequest">
-              <PropertyRef Name="LeaveID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__LeaveRequ__UserI__10566F31">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="LeaveRequest" Type="Self.LeaveRequest" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="LeaveRequest">
-              <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -311,6 +286,9 @@
           <Parameter Name="ToDate" Type="date" Mode="In" />
           <Parameter Name="Reason" Type="text" Mode="In" />
         </Function>
+        <Function Name="DeleteUserRecords" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="AttendenceProjectModelStoreContainer">
           <EntitySet Name="Attendance" EntityType="Self.Attendance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeProjectAssignment" EntityType="Self.EmployeeProjectAssignment" Schema="dbo" store:Type="Tables" />
@@ -324,11 +302,11 @@
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRoleMapping" EntityType="Self.UserRoleMapping" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Attendanc__Proje__70DDC3D8" Association="Self.FK__Attendanc__Proje__70DDC3D8">
+          <AssociationSet Name="FK__Attendanc__Proje__160F4887" Association="Self.FK__Attendanc__Proje__160F4887">
             <End Role="Project" EntitySet="Project" />
             <End Role="Attendance" EntitySet="Attendance" />
           </AssociationSet>
-          <AssociationSet Name="FK__Attendanc__UserI__6FE99F9F" Association="Self.FK__Attendanc__UserI__6FE99F9F">
+          <AssociationSet Name="FK__Attendanc__UserI__151B244E" Association="Self.FK__Attendanc__UserI__151B244E">
             <End Role="User" EntitySet="User" />
             <End Role="Attendance" EntitySet="Attendance" />
           </AssociationSet>
@@ -347,14 +325,6 @@
           <AssociationSet Name="FK__LeaveInfo__Leave__5AEE82B9" Association="Self.FK__LeaveInfo__Leave__5AEE82B9">
             <End Role="Leave" EntitySet="Leave" />
             <End Role="LeaveInfo" EntitySet="LeaveInfo" />
-          </AssociationSet>
-          <AssociationSet Name="FK__LeaveRequ__Leave__114A936A" Association="Self.FK__LeaveRequ__Leave__114A936A">
-            <End Role="Leave" EntitySet="Leave" />
-            <End Role="LeaveRequest" EntitySet="LeaveRequest" />
-          </AssociationSet>
-          <AssociationSet Name="FK__LeaveRequ__UserI__10566F31" Association="Self.FK__LeaveRequ__UserI__10566F31">
-            <End Role="User" EntitySet="User" />
-            <End Role="LeaveRequest" EntitySet="LeaveRequest" />
           </AssociationSet>
           <AssociationSet Name="FK__User__GradeID__440B1D61" Association="Self.FK__User__GradeID__440B1D61">
             <End Role="Grade" EntitySet="Grade" />
@@ -516,7 +486,6 @@
           <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="HireDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="ManagerID" Type="Int32" />
-          <Property Name="Status" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Salary" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
@@ -816,6 +785,9 @@
             <Parameter Name="ToDate" Mode="In" Type="DateTime" />
             <Parameter Name="Reason" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="DeleteUserRecords">
+            <Parameter Name="UserID" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -939,7 +911,6 @@
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="HireDate" ColumnName="HireDate" />
                 <ScalarProperty Name="ManagerID" ColumnName="ManagerID" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Salary" ColumnName="Salary" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
@@ -956,6 +927,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="CreateLeaveRequest" FunctionName="AttendenceProjectModel.Store.CreateLeaveRequest" />
+          <FunctionImportMapping FunctionImportName="DeleteUserRecords" FunctionName="AttendenceProjectModel.Store.DeleteUserRecords" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

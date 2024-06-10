@@ -60,5 +60,14 @@ namespace Timexis_1.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CreateLeaveRequest", userIDParameter, fromDateParameter, toDateParameter, reasonParameter);
         }
+    
+        public virtual int DeleteUserRecords(Nullable<int> userID)
+        {
+            var userIDParameter = userID.HasValue ?
+                new ObjectParameter("UserID", userID) :
+                new ObjectParameter("UserID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteUserRecords", userIDParameter);
+        }
     }
 }

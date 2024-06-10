@@ -117,7 +117,6 @@
           <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
           <ScalarProperty Name="HireDate" ColumnName="HireDate" />
           <ScalarProperty Name="ManagerID" ColumnName="ManagerID" />
-          <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="Salary" ColumnName="Salary" />
           <ScalarProperty Name="Username" ColumnName="Username" />
           <ScalarProperty Name="Password" ColumnName="Password" />
@@ -134,5 +133,6 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="CreateLeaveRequest" FunctionName="AttendenceProjectModel.Store.CreateLeaveRequest" />
+    <FunctionImportMapping FunctionImportName="DeleteUserRecords" FunctionName="AttendenceProjectModel.Store.DeleteUserRecords" />
   </EntityContainerMapping>
 </Mapping>

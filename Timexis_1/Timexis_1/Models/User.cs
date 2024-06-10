@@ -35,7 +35,6 @@ namespace Timexis_1.Models
         public string PhoneNumber { get; set; }
         public System.DateTime HireDate { get; set; }
         public Nullable<int> ManagerID { get; set; }
-        public string Status { get; set; }
         public decimal Salary { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }

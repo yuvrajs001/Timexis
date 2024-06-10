@@ -270,11 +270,7 @@
     <Content Include="Views\Attendances\Edit.cshtml" />
     <Content Include="Views\Attendances\Index.cshtml" />
     <Content Include="Views\LeaveRequests\LeaveRequest.cshtml" />
-    <Content Include="Views\EmployeeProjectAssignments\Create.cshtml" />
-    <Content Include="Views\EmployeeProjectAssignments\Delete.cshtml" />
     <Content Include="Views\EmployeeProjectAssignments\Details.cshtml" />
-    <Content Include="Views\EmployeeProjectAssignments\Edit.cshtml" />
-    <Content Include="Views\EmployeeProjectAssignments\Index.cshtml" />
     <Content Include="Views\Attendances\ApproveAttendence.cshtml" />
     <Content Include="Views\Attendances\Create.cshtml" />
     <Content Include="Views\LeaveRequests\PendingRequests.cshtml" />
