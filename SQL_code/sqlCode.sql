@@ -250,3 +250,6 @@ drop table LeaveRequest
 
 select * from Attendance
 insert into Attendance values(1,1034330,12345,'2024-05-13',9,'Pending')
+
+select*from EmployeeProjectAssignment
+delete from EmployeeProjectAssignment where ProjectID=2034
